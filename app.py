@@ -64,3 +64,26 @@ def register_user():
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.form.get('username')
+    password = request.form.get('password')
+
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        # Базадан осындай логин мен паролі бар адамды іздейміз
+        cursor.execute('SELECT * FROM users WHERE username = %s AND password = %s', (username, password))
+        user = cursor.fetchone()
+        
+        cursor.close()
+        conn.close()
+
+        if user:
+            # Егер табылып тұрса, басты бетке жібереміз
+            return redirect(url_for('home'))
+        else:
+            # Егер табылмаса, қате айтамыз
+            return "Логин немесе пароль қате!"
+    except Exception as e:
+        return f"Кіру кезінде қате шықты: {e}"
