@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Админ Панель</title>
+    <style>
+        body { font-family: Arial; padding: 20px; background: #2c3e50; color: white; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; color: black; }
+        th, td { border: 1px solid black; padding: 12px; text-align: left; }
+        th { background: #f39c12; }
+    </style>
+</head>
+<body>
+    <h1>Сайтқа тіркелгендер тізімі (Admin)</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Логин</th>
+                <th>Пароль</th>
+                <th>IP Мекенжайы</th>
+                <th>Уақыты</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user[0] }}</td>
+                <td>{{ user[1] }}</td>
+                <td>{{ user[2] }}</td>
+                <td>{{ user[3] }}</td>
+                <td>{{ user[4] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

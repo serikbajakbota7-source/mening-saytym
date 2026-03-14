@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BilimTech — Python Практика</title>
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<style>
+:root {
+    --primary: #00a8ff;
+    --success: #2ecc71;
+    --bg: #0f0f12;
+    --sidebar: #15151a;
+    --panel: #1a1a20;
+}
+
+/* Жалпы */
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Inter', sans-serif; }
+body { background: var(--bg); color: #fff; overflow: hidden; }
+
+/* App Layout */
+.app-container { display:flex; height:100vh; }
+.sidebar { width:280px; background: var(--sidebar); border-right:1px solid #333; display:flex; flex-direction:column; }
+.sidebar-top { padding:20px; display:flex; align-items:center; gap:15px; background:#1a1a22; border-bottom:1px solid #333; }
+.home-btn { background:none; border:none; color:#fff; font-size:24px; cursor:pointer; }
+.task-list { flex:1; overflow-y:auto; padding:15px; }
+.task-list::-webkit-scrollbar { width:4px; }
+.task-list::-webkit-scrollbar-thumb { background:#333; border-radius:10px; }
+.task-item { padding:12px; background:#22222a; border-radius:10px; margin-bottom:8px; cursor:pointer; border:1px solid transparent; display:flex; align-items:center; gap:10px; font-size:14px; }
+.task-item.active { border-color: var(--primary); background: rgba(0,168,255,0.1); }
+.task-item i { color: var(--success); }
+
+/* Workspace */
+.workspace { flex:1; display:flex; }
+.theory-section { width:400px; padding:30px; border-right:1px solid #333; background:#121217; display:flex; flex-direction:column; }
+.xp-badge { color:#f1c40f; font-weight:bold; margin-bottom:10px; }
+.progress-container { width:100%; height:6px; background:#333; border-radius:10px; overflow:hidden; }
+.progress-fill { height:100%; background: var(--success); width:0%; transition:0.4s; }
+.desc-box { background:#1a1a20; padding:20px; border-radius:12px; margin-top:20px; border-left:4px solid var(--primary); line-height:1.6; }
+.editor-section { flex:1; display:flex; flex-direction:column; background:#1e1e1e; }
+.editor-nav { padding:10px 20px; background:#25252d; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #333; }
+#code-editor { flex:1; background:#1e1e1e; color:#d4d4d4; padding:25px; font-family:'Consolas', monospace; font-size:18px; border:none; outline:none; resize:none; }
+.run-btn { background: var(--success); color:#fff; border:none; padding:8px 20px; border-radius:6px; cursor:pointer; font-weight:bold; }
+.terminal { height:200px; background:#000; padding:20px; border-top:2px solid #333; font-family:monospace; }
+.console-out { color: var(--success); margin-top:10px; }
+.ai-btn { width:100%; margin-top:20px; padding:10px; background:transparent; border:1px solid var(--primary); color: var(--primary); border-radius:8px; cursor:pointer; }
+.hint-text { margin-top:10px; padding:10px; background: rgba(0,168,255,0.05); border-radius:8px; font-size:13px; display:none; }
+</style>
+</head>
+<body>
+
+<!-- App Screen -->
+<div class="app-container">
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <button class="home-btn" onclick="goHome()"><i class='bx bx-left-arrow-alt'></i></button>
+            <span id="course-title">Python Journey</span>
+        </div>
+        <div id="task-list" class="task-list"></div>
+    </aside>
+    <main class="workspace">
+        <section class="theory-section">
+            <div class="theory-header">
+                <div class="xp-badge">✨ <span id="xp-val">0</span> XP</div>
+                <div class="progress-container"><div id="progress-fill" class="progress-fill"></div></div>
+            </div>
+            <div class="theory-body">
+                <h2 id="lesson-name">Тапсырма</h2>
+                <div id="lesson-desc" class="desc-box"></div>
+                <div class="ai-box">
+                    <button onclick="askAI()" class="ai-btn"><i class='bx bx-bot'></i> ЖИ Кеңесі</button>
+                    <div id="ai-hint" class="hint-text"></div>
+                </div>
+            </div>
+        </section>
+        <section class="editor-section">
+            <div class="editor-nav">
+                <span id="file-name">main.py</span>
+                <button class="run-btn" onclick="checkCode()"><i class='bx bx-play'></i> Іске қосу</button>
+            </div>
+            <textarea id="code-editor" spellcheck="false" placeholder="Кодты осында жазыңыз..."></textarea>
+            <div class="terminal">
+                <div class="terminal-head">ТЕРМИНАЛ</div>
+                <div id="console-out" class="console-out">> Дайын...</div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script>
+// Тапсырмалар базасы тек Python
+const database = [];
+for(let i=1;i<=50;i++){
+    database.push({
+        name: i===1?"1. Кіріспе":`. Жалғастыру`,
+        desc: i===1?"Экранға 'Salem' деп шығарыңыз.":`Python тіліндегі ${i}-ші тапсырма.`,
+        check: i===1?"print('Salem')":"python",
+        hint: i===1?"print() функциясын қолдан.":`Бұл кезеңнің коды: python`
+    });
+}
+
+let activeIdx=0, xp=0;
+
+function renderTasks(){
+    const list=document.getElementById('task-list');
+    list.innerHTML='';
+    database.forEach((task,i)=>{
+        const item=document.createElement('div');
+        item.className=`task-item ${i===activeIdx?'active':''}`;
+        const icon=i<activeIdx?"<i class='bx bxs-check-circle'></i>":`<span>${i+1}</span>`;
+        item.innerHTML=`${icon} <p>${task.name}</p>`;
+        item.onclick=()=>loadTask(i);
+        list.appendChild(item);
+    });
+}
+
+function loadTask(idx){
+    activeIdx=idx;
+    const task=database[activeIdx];
+    document.getElementById('lesson-name').innerText=task.name;
+    document.getElementById('lesson-desc').innerText=task.desc;
+    document.getElementById('code-editor').value="";
+    document.getElementById('ai-hint').style.display='none';
+    renderTasks();
+    document.getElementById('progress-fill').style.width=((activeIdx/database.length)*100)+"%";
+}
+
+// Кодты тексеру
+function checkCode(){
+    const userCode=document.getElementById('code-editor').value.replace(/\s+/g,'');
+    const correctCode=database[activeIdx].check.replace(/\s+/g,'');
+    const out=document.getElementById('console-out');
+    out.innerText="> Код тексерілуде...";
+    out.style.color="#2ecc71";
+    setTimeout(()=>{
+        if(userCode.includes(correctCode)){
+            out.innerText="> ТАМАША! Тапсырма орындалды. +50 XP ✔";
+            xp+=50;
+            document.getElementById('xp-val').innerText=xp;
+            if(activeIdx<database.length-1){
+                activeIdx++;
+                setTimeout(()=>loadTask(activeIdx),1000);
+            }else{
+                out.innerText="> ҚҰТТЫҚТАЙМЫЗ! СІЗ БҰЛ ТІЛДІ ТОЛЫҚ МЕҢГЕРДІҢІЗ!";
+            }
+        }else{
+            out.style.color="#ff4757";
+            out.innerText="> ҚАТЕ: Код дұрыс емес, қайта байқап көріңіз.";
+        }
+    },800);
+}
+
+// AI кеңесі
+function askAI(){
+    const task=database[activeIdx];
+    const hint=document.getElementById("ai-hint");
+    hint.innerText="🤖 ЖИ кеңесі: "+task.hint;
+    hint.style.display='block';
+}
+
+// Артқа
+function goHome(){
+    alert("Артқа батырмасы: Кірген бетке оралуға болады.");
+}
+
+// Бастапқы тапсырманы көрсету
+renderTasks();
+loadTask(0);
+</script>
+
+</body>
+</html>
