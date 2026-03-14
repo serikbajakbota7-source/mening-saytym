@@ -5,37 +5,38 @@ import os
 
 app = Flask(__name__)
 
-# Render-дегі базаға қосылу сілтемесі
+# Сенің Render-дегі базаңның сілтемесі
 DATABASE_URL = "postgresql://mening_db_user:RzX3a8IKl6f1JYYtLCT64tz6WAfYBqpW@dpg-d6qr4epj16oc73espbc0-a.oregon-postgres.render.com/mening_db"
 
 def get_db_connection():
+    # sslmode='require' Render базасы үшін міндетті
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     return conn
 
-# МЫНА ЖЕРДЕ КЕСТЕНІ АВТОМАТТЫ ТҮРДЕ ҚҰРУ ФУНКЦИЯСЫ:
-def init_db():
+# КЕСТЕНІ АВТОМАТТЫ ТҮРДЕ ҚҰРУ (Бұл 502 қатесін жояды)
+def create_tables():
     try:
         conn = get_db_connection()
-        cursor = conn.cursor()
-        cursor.execute('''
+        cur = conn.cursor()
+        cur.execute('''
             CREATE TABLE IF NOT EXISTS users (
                 id SERIAL PRIMARY KEY,
-                username TEXT NOT NULL,
-                password TEXT NOT NULL,
-                ip_address TEXT,
-                reg_time TEXT,
-                role TEXT DEFAULT 'user'
+                username VARCHAR(100) NOT NULL,
+                password VARCHAR(100) NOT NULL,
+                ip_address VARCHAR(50),
+                reg_time VARCHAR(50),
+                role VARCHAR(20) DEFAULT 'user'
             );
         ''')
         conn.commit()
-        cursor.close()
+        cur.close()
         conn.close()
-        print("База сәтті тексерілді/құрылды!")
+        print("База дайын!")
     except Exception as e:
-        print(f"Базаны дайындау кезінде қате: {e}")
+        print(f"Базаны құруда қате: {e}")
 
-# Сайтты қосқанда базаны дайындау
-init_db()
+# Сайтты қосқан кезде кестені бірден құру
+create_tables()
 
 @app.route('/')
 def registration():
@@ -78,5 +79,6 @@ def admin_panel():
         return f"Админ панель қатесі: {e}"
 
 if __name__ == '__main__':
+    # Render үшін портты автоматты түрде орнату
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
