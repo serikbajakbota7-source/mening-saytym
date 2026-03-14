@@ -6,13 +6,36 @@ import os
 app = Flask(__name__)
 
 # Render-дегі базаға қосылу сілтемесі
-# Егер базаң өшіп қалса, осы жердегі сілтемені жаңарту керек
 DATABASE_URL = "postgresql://mening_db_user:RzX3a8IKl6f1JYYtLCT64tz6WAfYBqpW@dpg-d6qr4epj16oc73espbc0-a.oregon-postgres.render.com/mening_db"
 
 def get_db_connection():
-    # sslmode='require' Render базасы үшін міндетті
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     return conn
+
+# МЫНА ЖЕРДЕ КЕСТЕНІ АВТОМАТТЫ ТҮРДЕ ҚҰРУ ФУНКЦИЯСЫ:
+def init_db():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS users (
+                id SERIAL PRIMARY KEY,
+                username TEXT NOT NULL,
+                password TEXT NOT NULL,
+                ip_address TEXT,
+                reg_time TEXT,
+                role TEXT DEFAULT 'user'
+            );
+        ''')
+        conn.commit()
+        cursor.close()
+        conn.close()
+        print("База сәтті тексерілді/құрылды!")
+    except Exception as e:
+        print(f"Базаны дайындау кезінде қате: {e}")
+
+# Сайтты қосқанда базаны дайындау
+init_db()
 
 @app.route('/')
 def registration():
@@ -39,7 +62,7 @@ def register_user():
         conn.close()
         return redirect(url_for('home'))
     except Exception as e:
-        return f"Қате орын алды: {e}"
+        return f"Тіркелу кезінде қате: {e}"
 
 @app.route('/admin')
 def admin_panel():
@@ -52,9 +75,8 @@ def admin_panel():
         conn.close()
         return render_template('admin.html', users=all_users)
     except Exception as e:
-        return f"Базаға қосылу мүмкін болмады: {e}"
+        return f"Админ панель қатесі: {e}"
 
 if __name__ == '__main__':
-    # Render үшін портты автоматты түрде алу маңызды
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
