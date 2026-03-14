@@ -1,18 +1,17 @@
 from flask import Flask, render_template, request, redirect, url_for
-import psycopg2  # Sqlite3-тің орнына осыны қолданамыз
+import psycopg2
 from datetime import datetime
+import os
 
 app = Flask(__name__)
 
-# Бұл жерде базаға қосылу мәліметтерін жазамыз
-# Пароль деген жерге pgAdmin-ге кіретін пароліңді жаз
+# Render-дегі базаға қосылу сілтемесі
+# Егер базаң өшіп қалса, осы жердегі сілтемені жаңарту керек
+DATABASE_URL = "postgresql://mening_db_user:RzX3a8IKl6f1JYYtLCT64tz6WAfYBqpW@dpg-d6qr4epj16oc73espbc0-a.oregon-postgres.render.com/mening_db"
+
 def get_db_connection():
-    conn = psycopg2.connect(
-        host="localhost",
-        database="mening_bazam",
-        user="postgres",
-        password="СЕНІҢ_ПАРОЛІҢ"  # ОСЫ ЖЕРГЕ ПАРОЛЬ ЖАЗ!
-    )
+    # sslmode='require' Render базасы үшін міндетті
+    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     return conn
 
 @app.route('/')
@@ -33,7 +32,6 @@ def register_user():
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
-        # PostgreSQL-де сұрақ белгісінің (?) орнына %s қолданылады
         cursor.execute('INSERT INTO users (username, password, ip_address, reg_time) VALUES (%s, %s, %s, %s)',
                        (username, password, ip_addr, reg_time))
         conn.commit()
@@ -57,4 +55,6 @@ def admin_panel():
         return f"Базаға қосылу мүмкін болмады: {e}"
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    # Render үшін портты автоматты түрде алу маңызды
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
