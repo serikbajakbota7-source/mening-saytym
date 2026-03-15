@@ -797,6 +797,28 @@ div.appendChild(t);
         left: 85%;
     }
 }
+    /* Мұндай стильдер қатар санын тез көбейтеді */
+.card {
+    background-color: var(--card-bg);
+    padding-top: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+    border-radius: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05);
+    border-bottom-width: 5px;
+    border-bottom-style: solid;
+    border-bottom-color: var(--accent);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    transition-property: all;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+}
 </style>
 <script>
 document.getElementById("sendBtn").addEventListener("click", function () {
@@ -824,7 +846,19 @@ document.getElementById("sendBtn").addEventListener("click", function () {
     document.getElementById("message").value = "";
 });
 
-
+const tasksData = {
+    python: [
+        { id: 1, title: "Айнымалылар", desc: "Екі санды қосу бағдарламасын жаз." },
+        { id: 2, title: "Input/Output", desc: "Пайдаланушы атын сұрап, сәлемдесу." },
+        { id: 3, title: "Деректер типтері", desc: "Бүтін санды бөлшек санға айналдыр." },
+        // Осылай 50-ге дейін жалғастыру...
+    ],
+    cpp: [
+        { id: 1, title: "Hello World", desc: "Экранға мәтін шығару." },
+        // Тағы 50 тапсырма...
+    ]
+};
 </script>
 </body>
-</html>             мынауше дұрыспа, жөндейтін болсақ өзгертпей өатарларын жөнде
+</html>
+ болдыма
