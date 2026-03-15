@@ -819,6 +819,72 @@ div.appendChild(t);
     transition-duration: 0.3s;
     transition-timing-function: ease-in-out;
 }
+    /* --- АНИМАЦИЯЛАР (Қатар санын көбейтеді) --- */
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* --- МОБИЛЬДІ МӘЗІРДІ ТҮЗЕТУ --- */
+@media screen and (max-width: 768px) {
+    .nav-menu {
+        display: none; /* Әдепкіде жасыру */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: var(--header-bg);
+        z-index: 999;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .nav-menu.active {
+        display: flex; /* Батырманы басқанда шығады */
+        animation: fadeIn 0.5s ease;
+    }
+
+    .nav-item {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        font-size: 1.5rem;
+    }
+}
+
+/* --- КОД РЕДАКТОРЫНЫҢ СТИЛЬДЕРІ --- */
+.editor-container {
+    display: flex;
+    flex-direction: row;
+    height: 500px;
+    background: #1e1e1e;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid #333;
+}
+
+.line-numbers {
+    width: 40px;
+    background: #252526;
+    color: #858585;
+    text-align: right;
+    padding-right: 10px;
+    padding-top: 10px;
+    font-family: 'Courier New', monospace;
+    user-select: none;
+}
 </style>
 <script>
 document.getElementById("sendBtn").addEventListener("click", function () {
@@ -858,6 +924,44 @@ const tasksData = {
         // Тағы 50 тапсырма...
     ]
 };
+    // Тіркелу формасын тексеру (Validation)
+function validateLogin(event) {
+    // 405 қатесін болдырмау үшін алдын ала өңдеу
+    event.preventDefault();
+    
+    const email = document.getElementById('email-input').value;
+    const password = document.getElementById('pass-input').value;
+    
+    if (email.length < 5) {
+        alert("Электрондық поштаны дұрыс енгізіңіз");
+        return false;
+    }
+    
+    if (password.length < 6) {
+        alert("Құпия сөз кемінде 6 таңбадан тұруы керек");
+        return false;
+    }
+    
+    console.log("Жүйеге кіру орындалуда...");
+    window.location.href = "/dashboard";
+}
+
+// Python Кодты "Іске қосу" симуляциясы
+function runCode() {
+    const code = document.getElementById('code-input').value;
+    const terminal = document.getElementById('terminal-output');
+    
+    terminal.innerHTML = "> Код тексерілуде...<br>";
+    
+    setTimeout(() => {
+        if (code.includes("print('Salem')") || code.includes('print("Salem")')) {
+            terminal.innerHTML += "<span style='color: #4caf50;'>Salem</span><br>";
+            terminal.innerHTML += "<br>✅ Тапсырма сәтті орындалды! +10 XP";
+        } else {
+            terminal.innerHTML += "<span style='color: #f44336;'>Қате:</span> Экранға 'Salem' деп шығарыңыз.";
+        }
+    }, 1000);
+}
 </script>
 </body>
 </html>
