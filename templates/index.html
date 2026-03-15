@@ -185,7 +185,9 @@
     <div id="lock-screen" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(74, 93, 74, 0.95); z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; color:white; text-align:center; padding:20px;">
     <h2>🚀 CodeSchool-ға қош келдіңіз!</h2>
     <p>Сабақтарды бастау үшін алдымен тіркелуіңіз қажет</p>
-    <a href="/login" class="btn-start" style="margin-top:20px; font-size:1.2rem; padding:15px 40px;">ТІРКЕЛУ / КІРУ</a>
+   <button onclick="document.getElementById('lock-screen').style.display='none'" class="btn-start" style="margin-top:20px; font-size:1.2rem; padding:15px 40px; border:none; cursor:pointer;">
+    ТІРКЕЛУ / КІРУ
+</button>
 </div>
 
    <div class="speech-bubble" id="bubble">
@@ -250,7 +252,7 @@ frameborder="0" allow="autoplay"></iframe>
                 <img src="https://cdn-icons-png.flaticon.com/512/5968/5968350.png" width="50">
                 <h3>Python</h3>
                 <p>Деректер талдау және AI үшін ең танымал тіл.</p>
-                <button onclick="window.location.href='/lesson?lang=Python'" class="btn-start">Таңдау</button>
+                <button onclick="openLesson('Python', 'https://www.youtube.com/embed/7At73HWmYIc')" class="btn-start">Таңдау</button>
             </div>
             <div class="card">
                 <img src="https://cdn-icons-png.flaticon.com/512/6132/6132222.png" width="50">
