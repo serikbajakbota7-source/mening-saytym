@@ -8,7 +8,7 @@
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
         
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; text-decoration: none; list-style: none; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; text-decoration: none; }
         
         body { 
             display: flex; 
@@ -16,6 +16,7 @@
             align-items: center; 
             min-height: 100vh; 
             background: linear-gradient(90deg, #f4f1ea, #cae1d0); 
+            padding: 20px;
         }
 
         .container { 
@@ -23,12 +24,12 @@
             width: 850px; 
             height: 550px; 
             background: #fff; 
-            margin: 20px; 
             border-radius: 30px; 
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.2); 
             overflow: hidden; 
         }
 
+        /* Формалар блогы */
         .form-box { 
             position: absolute; 
             right: 0; 
@@ -36,50 +37,55 @@
             height: 100%; 
             background: #fff; 
             display: flex; 
-            align-items: center; 
+            flex-direction: column;
+            justify-content: center;
             padding: 40px; 
             z-index: 1; 
-            transition: 0.6s ease-in-out 1.2s; 
+            transition: 0.6s ease-in-out; 
         }
 
-        .container.active .form-box { right: 50%; }
-        .form-box.register { visibility: hidden; }
-        .container.active .form-box.register { visibility: visible; transition-delay: 1.2s; }
+        .container.active .form-box.login { transform: translateX(100%); opacity: 0; z-index: 0; }
+        .form-box.register { transform: translateX(-100%); opacity: 0; z-index: 0; left: 0; }
+        .container.active .form-box.register { transform: translateX(0); opacity: 1; z-index: 1; }
 
-        .input-box { position: relative; margin: 25px 0; }
+        .input-box { position: relative; margin: 15px 0; }
         .input-box input { 
             width: 100%; 
-            padding: 13px 50px 13px 20px; 
-            background: #f9f9f9; 
-            border-radius: 8px; 
-            border: 1px solid #ddd; 
+            padding: 12px 45px 12px 15px; 
+            background: #f0f0f0; 
+            border-radius: 10px; 
+            border: none; 
             outline: none; 
-            font-size: 16px; 
+            font-size: 15px; 
         }
-        .input-box i { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 20px; color: #4a5d4a; }
+        .input-box i { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-size: 20px; color: #4a5d4a; }
 
-        .btn, .btn-start { 
+        .btn { 
             width: 100%; 
-            height: 48px; 
+            padding: 12px; 
             background: #4a5d4a; 
-            border-radius: 8px; 
+            border-radius: 10px; 
             border: none; 
             cursor: pointer; 
             font-size: 16px; 
             color: #fff; 
             font-weight: 600; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            margin-top: 15px; 
-            transition: .3s;
+            margin-top: 10px;
+        }
+        .btn-start { 
+            display: block;
+            text-align: center;
+            width: 100%;
+            padding: 10px;
+            background: #d4a373;
+            color: white;
+            border-radius: 10px;
+            margin-top: 10px;
+            font-size: 14px;
         }
 
-        .btn-start { background: #d4a373; margin-top: 10px; }
-        .btn:hover { background: #344e41; }
-
-        /* Toggle Box Styles */
-        .toggle-box { position: absolute; width: 100%; height: 100%; }
+        /* Toggle Box (Desktop) */
+        .toggle-box { position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; }
         .toggle-box::before { 
             content: ""; 
             position: absolute; 
@@ -89,9 +95,9 @@
             background: #4a5d4a; 
             border-radius: 150px; 
             z-index: 2; 
-            transition: 1.8s ease-in-out; 
+            transition: 1.2s ease-in-out; 
+            pointer-events: all;
         }
-
         .container.active .toggle-box::before { left: 50%; }
 
         .toggle-panel { 
@@ -106,43 +112,31 @@
             z-index: 2; 
             transition: 0.6s ease-in-out; 
             text-align: center;
-            padding: 0 20px;
+            padding: 0 30px;
+            pointer-events: all;
         }
+        .toggle-left { left: 0; }
+        .container.active .toggle-left { left: -50%; }
+        .toggle-right { right: -50%; }
+        .container.active .toggle-right { right: 0; }
 
-        .toggle-left { left: 0; transition-delay: 1.2s; }
-        .container.active .toggle-left { left: -50%; transition-delay: 0.6s; }
+        .mobile-text { display: none; margin-top: 20px; font-size: 13px; text-align: center; }
+        .mobile-text span { color: #d4a373; font-weight: 600; cursor: pointer; }
 
-        .toggle-right { right: -50%; transition-delay: 0.6s; }
-        .container.active .toggle-right { right: 0; transition-delay: 1.2s; }
-
-        .toggle-panel .btn { width: 160px; background: transparent; border: 2px solid #fff; margin-top: 20px; }
-
-        /* Мобильдік нұсқаға арналған сілтеме (әдепкі бойынша жасыру) */
-        .mobile-text { display: none; margin-top: 20px; text-align: center; font-size: 14px; }
-        .mobile-text span { color: #4a5d4a; font-weight: 600; cursor: pointer; text-decoration: underline; }
-
-        /* АДАПТИВТІ ДИЗАЙН */
+        /* ТЕЛЕФОНҒА АРНАЛҒАН АДАПТИВТІЛІК */
         @media (max-width: 768px) {
-            .container { width: 100%; height: 100vh; border-radius: 0; margin: 0; }
-            .toggle-box { display: none; } /* Жасыл блокты телефонда алып тастаймыз */
-            .form-box { width: 100%; padding: 30px; }
-            .container.active .form-box { right: 0; }
-            .mobile-text { display: block; } /* Телефонда ауыстыру сілтемесін көрсетеміз */
+            .container { width: 100%; max-width: 400px; height: auto; min-height: 500px; border-radius: 20px; }
+            .toggle-box { display: none; }
+            .form-box { width: 100%; position: relative; padding: 30px; }
             
-            /* Тіркелу формасы белсенді болғанда кіру формасын жасыру */
+            /* Телефонда ауысқанда формалардың көрінуі */
+            .form-box.register { display: none; transform: none; opacity: 1; position: relative; }
             .container.active .form-box.login { display: none; }
-            .container.active .form-box.register { position: relative; visibility: visible; }
+            .container.active .form-box.register { display: flex; }
+            
+            .mobile-text { display: block; }
+            h1 { font-size: 22px; margin-bottom: 10px; }
         }
-        @media (max-width: 480px) {
-    .container {
-        width: 90%;
-        height: auto;
-        min-height: 450px;
-        padding-bottom: 30px;
-    }
-    .form-box h1 { font-size: 1.5rem; }
-    .input-box input { padding: 10px 40px 10px 15px; font-size: 14px; }
-}
     </style>
 </head>
 <body>
@@ -150,18 +144,17 @@
     <div class="container">
         <div class="form-box login">
             <form action="/login" method="POST">
-                <h1>Қош келдіңіз!</h1>
+                <h1>Кіру</h1>
                 <div class="input-box">
-                    <input type="text" name="username" placeholder="Пайдаланушы аты" required>
+                    <input type="text" placeholder="Пайдаланушы аты" required>
                     <i class='bx bxs-user'></i>
                 </div>
                 <div class="input-box">
-                    <input type="password" name="password" placeholder="Құпия сөз" required>
+                    <input type="password" placeholder="Құпия сөз" required>
                     <i class='bx bxs-lock-alt'></i>
                 </div>
                 <button type="submit" class="btn">КІРУ</button>
                 <a href="/home" class="btn-start">Тіркелмей өту</a>
-                
                 <p class="mobile-text">Аккаунтыңыз жоқ па? <span onclick="toggleForm()">Тіркелу</span></p>
             </form>
         </div>
@@ -170,33 +163,32 @@
             <form action="/register_user" method="POST">
                 <h1>Тіркелу</h1>
                 <div class="input-box">
-                    <input type="text" name="fullname" placeholder="Толық аты-жөніңіз" required>
+                    <input type="text" placeholder="Толық аты-жөн" required>
                     <i class='bx bxs-user-detail'></i>
                 </div>
                 <div class="input-box">
-                    <input type="text" name="username" placeholder="Пайдаланушы аты" required>
+                    <input type="text" placeholder="Пайдаланушы аты" required>
                     <i class='bx bxs-user'></i>
                 </div>
                 <div class="input-box">
-                    <input type="password" name="password" placeholder="Құпия сөз" required>
+                    <input type="password" placeholder="Құпия сөз" required>
                     <i class='bx bxs-lock-alt'></i>
                 </div>
                 <button type="submit" class="btn">ТІРКЕЛУ</button>
-                
                 <p class="mobile-text">Аккаунтыңыз бар ма? <span onclick="toggleForm()">Кіру</span></p>
             </form>
         </div>
 
         <div class="toggle-box">
             <div class="toggle-panel toggle-left">
-                <h1>Сәлем, Дос!</h1>
-                <p>Әлі тіркелмедіңіз бе?</p>
-                <button class="btn" id="register-btn">Тіркелу</button>
+                <h1>Сәлем!</h1>
+                <p>Білім әлеміне қосылу үшін тіркеліңіз</p>
+                <button class="btn" style="background:transparent; border:2px solid white; width:150px;" id="register-btn">Тіркелу</button>
             </div>
             <div class="toggle-panel toggle-right">
-                <h1>Қайта оралуыңызбен!</h1>
-                <p>Аккаунтыңыз бар ма?</p>
-                <button class="btn" id="login-btn">Кіру</button>
+                <h1>Қош келдіңіз!</h1>
+                <p>Жеке кабинетіңізге кіріңіз</p>
+                <button class="btn" style="background:transparent; border:2px solid white; width:150px;" id="login-btn">Кіру</button>
             </div>
         </div>
     </div>
@@ -206,16 +198,9 @@
         const registerBtn = document.getElementById('register-btn');
         const loginBtn = document.getElementById('login-btn');
 
-        // Desktop батырмалары
-        registerBtn.addEventListener('click', () => {
-            container.classList.add('active');
-        });
+        registerBtn.onclick = () => container.classList.add('active');
+        loginBtn.onclick = () => container.classList.remove('active');
 
-        loginBtn.addEventListener('click', () => {
-            container.classList.remove('active');
-        });
-
-        // Мобильдік ауыстыру функциясы
         function toggleForm() {
             container.classList.toggle('active');
         }
