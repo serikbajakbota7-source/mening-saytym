@@ -1,212 +1,219 @@
 <!DOCTYPE html>
 <html lang="kk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeSchool | Akbota & Indumarzhan</title>
-    <style>
-        /* НЕГІЗГІ СТИЛЬДЕР - Екінші суреттегі түстер палитрасы */
-        :root { 
-            --bg-color: #f4f1ea; /* Крем түсті фон */
-            --header-bg: #4a5d4a; /* Зәйтүн жасыл */
-            --text-color: #2c3e50;
-            --card-bg: #ffffff;
-            --accent: #d4a373; /* Қоңыр-сарғыш акцент */
-            --footer-bg: #344e41;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeSchool | Akbota & Indumarzhan</title>
+    <style>
+        /* НЕГІЗГІ СТИЛЬДЕР - Екінші суреттегі түстер палитрасы */
+        :root { 
+            --bg-color: #f4f1ea; /* Крем түсті фон */
+            --header-bg: #4a5d4a; /* Зәйтүн жасыл */
+            --text-color: #2c3e50;
+            --card-bg: #ffffff;
+            --accent: #d4a373; /* Қоңыр-сарғыш акцент */
+            --footer-bg: #344e41;
+        }
 
-        /* Түнгі режим түстері */
-        .dark-mode {
-            --bg-color: #1b1b1b;
-            --header-bg: #000000;
-            --text-color: #e0e0e0;
-            --card-bg: #2d2d2d;
-            --accent: #ebdf58e1;
-        }
+        /* Түнгі режим түстері */
+        .dark-mode {
+            --bg-color: #1b1b1b;
+            --header-bg: #000000;
+            --text-color: #e0e0e0;
+            --card-bg: #2d2d2d;
+            --accent: #ebdf58e1;
+        }
 
-        * { box-sizing: border-box; transition: 0.3s; }
+        * { box-sizing: border-box; transition: 0.3s; }
 
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
 
-        /* HEADER */
-        header {
-            background: var(--header-bg);
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 50px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
+        /* HEADER */
+        header {
+            background: var(--header-bg);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
 
-        nav a {
-            color: white;
-            margin: 0 15px;
-            text-decoration: none;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-        nav a:hover { color: var(--accent); }
+        nav a:hover { color: var(--accent); }
 
-        .theme-switch {
-            background: none;
-            border: 1px solid white;
-            color: white;
-            cursor: pointer;
-            padding: 5px 10px;
-            border-radius: 20px;
-        }
+        .theme-switch {
+            background: none;
+            border: 1px solid white;
+            color: white;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
 
-        /* HOME / HERO SECTION */
-        .home {
-            height: 85vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1500');
-            background-size: cover;
-            color: white;
-        }
+        /* HOME / HERO SECTION */
+        .home {
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1500');
+            background-size: cover;
+            color: white;
+        }
 
-        .home h1 { font-size: 3rem; margin-bottom: 10px; }
+        .home h1 { font-size: 3rem; margin-bottom: 10px; }
 
-        /* РОБОТ АССИСТЕНТ */
-        .robot-fixed {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 120px;
-    cursor: pointer;
-    z-index: 2000;
-    mix-blend-mode: multiply;
+        /* РОБОТ АССИСТЕНТ */
+        .robot-fixed {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 120px;
+    cursor: pointer;
+    z-index: 2000;
+    mix-blend-mode: multiply;
 }
 
 
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
 
-        .speech-bubble {
-    position: fixed;
-    bottom: 140px;
-    right: 40px;
-    background: white;
-    padding: 15px;
-    border-radius: 20px 20px 0 20px;
-    color: #333;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    display: none;
-    z-index: 2000;
-    font-weight: bold;
-    border: 2px solid var(--accent);
+        .speech-bubble {
+    position: fixed;
+    bottom: 140px;
+    right: 40px;
+    background: white;
+    padding: 15px;
+    border-radius: 20px 20px 0 20px;
+    color: #333;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    display: none;
+    z-index: 2000;
+    font-weight: bold;
+    border: 2px solid var(--accent);
 }
-        /* КАРТОЧКАЛАР */
-        section { padding: 80px 10%; text-align: center; }
+        /* КАРТОЧКАЛАР */
+        section { padding: 80px 10%; text-align: center; }
 
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-top: 40px;
-        }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
 
-        .card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border-bottom: 5px solid var(--accent);
-        }
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-bottom: 5px solid var(--accent);
+        }
 
-        .btn-start {
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+        .btn-start {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+        }
 
-        /* LESSON CONTENT */
-        .lesson-box {
-            background: var(--card-bg);
-            padding: 40px;
-            margin-top: 30px;
-            border-radius: 20px;
-            display: none;
-        }
+        /* LESSON CONTENT */
+        .lesson-box {
+            background: var(--card-bg);
+            padding: 40px;
+            margin-top: 30px;
+            border-radius: 20px;
+            display: none;
+        }
 
-        .task-grid {
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            gap: 8px;
-            margin-top: 20px;
-        }
+        .task-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 8px;
+            margin-top: 20px;
+        }
 
-        .task-btn {
-            padding: 10px;
-            background: #eee;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 12px;
-        }
+        .task-btn {
+            padding: 10px;
+            background: #eee;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
 
-        .task-btn:hover { background: var(--accent); color: white; }
+        .task-btn:hover { background: var(--accent); color: white; }
 
-        /* FOOTER */
-        footer {
-            background: var(--footer-bg);
-            color: white;
-            padding: 40px;
-            text-align: center;
-        }
+        /* FOOTER */
+        footer {
+            background: var(--footer-bg);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
 
-    </style>
+    </style>
 </head>
 
 <body>
+    <div id="lock-screen" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(74, 93, 74, 0.95); z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; color:white; text-align:center; padding:20px;">
+    <h2>🚀 CodeSchool-ға қош келдіңіз!</h2>
+    <p>Сабақтарды бастау үшін алдымен тіркелуіңіз қажет</p>
+   <button onclick="document.getElementById('lock-screen').style.display='none'" class="btn-start" style="margin-top:20px; font-size:1.2rem; padding:15px 40px; border:none; cursor:pointer;">
+    ТІРКЕЛУ / КІРУ
+</button>
+</div>
 
-   <div class="speech-bubble" id="bubble">
+   <div class="speech-bubble" id="bubble">
 Сәлем! Бүгін қандай тілді үйренеміз? 🚀
 </div>
 <img src="https://i.pinimg.com/originals/88/5c/b9/885cb9c22fe028b25db7ea87b1e301cd.gif"
-     class="robot-fixed"
-     onclick="toggleSpeech()"
-     alt="Robot Assistant">
+     class="robot-fixed"
+     onclick="toggleSpeech()"
+     alt="Robot Assistant">
 
-    <header>
-        <h2 style="margin:0;">CodeSchool</h2>
-        <nav>
-            <a href="#home">Басты бет</a>
-            <a href="#about">Біз жайлы</a>
-            <a href="#courses">Курстар</a>
-            <a href="#comment">Сайт жайлы пікірлер</a>
-        </nav>
-        <div>
-            <button class="theme-switch" onclick="toggleTheme()">🌙/☀️</button>
-            <a href="/" class="btn-start" style="margin-left:0px; text-decoration:none;">Тіркелу</a>
-        </div>
-    </header>
+    <header>
+        <h2 style="margin:0;">CodeSchool</h2>
+        <nav>
+            <a href="#home">Басты бет</a>
+            <a href="#about">Біз жайлы</a>
+            <a href="#courses">Курстар</a>
+            <a href="#comment">Сайт жайлы пікірлер</a>
+        </nav>
+        <div>
+            <button class="theme-switch" onclick="toggleTheme()">🌙/☀️</button>
+            <a href="/" class="btn-start" style="margin-left:0px; text-decoration:none;">Тіркелу</a>
+        </div>
+    </header>
 <!-- Музыка басқару батырмасы -->
 <button id="musicControl" style="position:fixed; top:15px; left:80%; transform:translateX(-50%); z-index:1500; padding:8px 15px; background:#4a5d4a; border:none; border-radius:10px; cursor:pointer;">
-    Музыканы қосу
+    Музыканы қосу
 </button>
 
 <!-- YouTube iFrame (жасырын) -->
@@ -214,116 +221,116 @@
 src="https://www.youtube.com/embed/7At73HWmYIc?enablejsapi=1"
 frameborder="0" allow="autoplay"></iframe>
 
-    <section id="home" class="home">
-        <h1>Болашақты бізбен бірге кодта</h1>
-        <p style="font-size:1.2rem;">Python, C++ және C# тілдерін кәсіби деңгейде меңгеріңіз</p>
-        <a href="#courses" class="btn-start" style="text-decoration:none;">Сабақты бастау</a>
-    </section>
+    <section id="home" class="home">
+        <h1>Болашақты бізбен бірге кодта</h1>
+        <p style="font-size:1.2rem;">Python, C++ және C# тілдерін кәсіби деңгейде меңгеріңіз</p>
+        <a href="#courses" class="btn-start" style="text-decoration:none;">Сабақты бастау</a>
+    </section>
 
-    <section id="about">
-        <h2 style="color:var(--accent)">Біздің миссиямыз</h2>
-        <div class="cards">
-            <div class="card">
-                <h3>Тәжірибе</h3>
-                <p>Тек теория емес, әр тіл бойынша 25+ нақты практикалық есептер жинағы.</p>
-            </div>
-            <div class="card">
-                <h3>Қолжетімділік</h3>
-                <p>Кез келген құрылғыдан 24/7 оқу мүмкіндігі және онлайн қолдау.</p>
-            </div>
-            <div class="card">
-                <h3>Нәтиже</h3>
-                <p>Курс соңында сіздің жеке портфолиоңызда нақты жобалар болады.</p>
-            </div>
-        </div>
-    </section>
+    <section id="about">
+        <h2 style="color:var(--accent)">Біздің миссиямыз</h2>
+        <div class="cards">
+            <div class="card">
+                <h3>Тәжірибе</h3>
+                <p>Тек теория емес, әр тіл бойынша 25+ нақты практикалық есептер жинағы.</p>
+            </div>
+            <div class="card">
+                <h3>Қолжетімділік</h3>
+                <p>Кез келген құрылғыдан 24/7 оқу мүмкіндігі және онлайн қолдау.</p>
+            </div>
+            <div class="card">
+                <h3>Нәтиже</h3>
+                <p>Курс соңында сіздің жеке портфолиоңызда нақты жобалар болады.</p>
+            </div>
+        </div>
+    </section>
 
-    <section id="courses" style="background: rgba(0,0,0,0.02);">
-        <h2>Бағдарламалау тілдері</h2>
-        <div class="cards">
-            <div class="card">
-                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968350.png" width="50">
-                <h3>Python</h3>
-                <p>Деректер талдау және AI үшін ең танымал тіл.</p>
-                <button onclick="window.location.href='/lesson?lang=Python'" class="btn-start">Таңдау</button>
-            </div>
-            <div class="card">
-                <img src="https://cdn-icons-png.flaticon.com/512/6132/6132222.png" width="50">
-                <h3>C++</h3>
-                <p>Жүйелік бағдарламалау және ойын жасау негізі.</p>
-                <button onclick="window.location.href='/lesson?lang=C%2B%2B'" class="btn-start">Таңдау</button>
-            </div>
-            <div class="card">
-                <img src="https://cdn-icons-png.flaticon.com/512/6132/6132221.png" width="50">
-                <h3>C#</h3>
-                <p>Unity ойын платформасы мен бизнеске арналған.</p>
-                <button onclick="window.location.href='/lesson?lang=C%23'" class="btn-start">Таңдау</button>
-            </div>
-        </div>
-    </section>
+    <section id="courses" style="background: rgba(0,0,0,0.02);">
+        <h2>Бағдарламалау тілдері</h2>
+        <div class="cards">
+            <div class="card">
+                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968350.png" width="50">
+                <h3>Python</h3>
+                <p>Деректер талдау және AI үшін ең танымал тіл.</p>
+                <button onclick="openLesson('Python', 'https://www.youtube.com/embed/7At73HWmYIc')" class="btn-start">Таңдау</button>
+            </div>
+            <div class="card">
+                <img src="https://cdn-icons-png.flaticon.com/512/6132/6132222.png" width="50">
+                <h3>C++</h3>
+                <p>Жүйелік бағдарламалау және ойын жасау негізі.</p>
+                <button onclick="window.location.href='/lesson?lang=cpp'" class="btn-start">Таңдау</button>
+            </div>
+            <div class="card">
+                <img src="https://cdn-icons-png.flaticon.com/512/6132/6132221.png" width="50">
+                <h3>C#</h3>
+                <p>Unity ойын платформасы мен бизнеске арналған.</p>
+                <button onclick="window.location.href='/lesson?lang=csharp'" class="btn-start">Таңдау</button>
+            </div>
+        </div>
+    </section>
 
-    <section id="trial">
-        <h2>Толық ақпарат</h2>
-        <div id="lesson-placeholder" style="color:#888;">👆 Жоғарыдан оқығыңыз келетін тілді таңдаңыз</div>
-        
-        <div id="lesson-content" class="lesson-box">
-            <h3 id="lesson-title"></h3>
-            <iframe id="video" width="100%" height="400" src="" frameborder="0" style="border-radius:15px; margin-bottom:20px;" allowfullscreen></iframe>
-            
-            <h4>Тапсырмалар жинағы (50 есеп)</h4>
-            <div class="task-grid" id="task-grid"></div>
-        </div>
-    </section>
+    <section id="trial">
+        <h2>Толық ақпарат</h2>
+        <div id="lesson-placeholder" style="color:#888;">👆 Жоғарыдан оқығыңыз келетін тілді таңдаңыз</div>
+        
+        <div id="lesson-content" class="lesson-box">
+            <h3 id="lesson-title"></h3>
+            <iframe id="video" width="100%" height="400" src="" frameborder="0" style="border-radius:15px; margin-bottom:20px;" allowfullscreen></iframe>
+            
+            <h4>Тапсырмалар жинағы (50 есеп)</h4>
+            <div class="task-grid" id="task-grid"></div>
+        </div>
+    </section>
 
-    <section id="comment"  >
-        <div class="feedback-card">
-        <h2>Пікір қалдыру</h2>
-        <p>Бізге хабарлама жіберіңіз, біз WhatsApp-та жауап береміз</p>
-        
-        <div class="input-group">
-            <label for="name">Атыңыз</label>
-            <input type="text" id="name" placeholder="Мысалы: Арман">
-        </div>
+    <section id="comment"  >
+        <div class="feedback-card">
+        <h2>Пікір қалдыру</h2>
+        <p>Бізге хабарлама жіберіңіз, біз WhatsApp-та жауап береміз</p>
+        
+        <div class="input-group">
+            <label for="name">Атыңыз</label>
+            <input type="text" id="name" placeholder="Мысалы: Арман">
+        </div>
 
-        <div class="input-group">
-            <label for="message">Пікіріңіз</label>
-            <textarea id="message" rows="4" placeholder="Хабарламаңызды осында жазыңыз..."></textarea>
-        </div>
+        <div class="input-group">
+            <label for="message">Пікіріңіз</label>
+            <textarea id="message" rows="4" placeholder="Хабарламаңызды осында жазыңыз..."></textarea>
+        </div>
 
-        <button id="sendBtn">
-            WhatsApp-қа жіберу
-        </button>
-        </div>
-        </section>
+        <button id="sendBtn">
+            WhatsApp-қа жіберу
+        </button>
+        </div>
+        </section>
 
-    <footer>
-    <h3>CodeSchool</h3>
-    <p>IT әлеміне жолдама алыңыз</p>
-    <hr style="opacity:0.2; margin:20px 0;">
-    <p><strong>Жасаушылар:</strong> Серікбай Ақбота & Өскенбай Інжумаржан</p>
-    <p>© 2026 Барлық құқықтар қорғалған</p>
+    <footer>
+    <h3>CodeSchool</h3>
+    <p>IT әлеміне жолдама алыңыз</p>
+    <hr style="opacity:0.2; margin:20px 0;">
+    <p><strong>Жасаушылар:</strong> Серікбай Ақбота & Өскенбай Інжумаржан</p>
+    <p>© 2026 Барлық құқықтар қорғалған</p>
 
-    <!-- Әлеуметтік желі батырмалары -->
-    <ul class="social-buttons">
-        <li>
-            <a href="https://www.facebook.com/share/1XSUu7SKCK/?mibextid=wwXIfr" target="_blank">
-                <i class="fa-brands fa-facebook-f"></i>
-                <span>Facebook</span>
-            </a>
-        </li>
-        <li>
-            <a href="https://wa.me/7783244107" target="_blank">
-                <i class="fa-brands fa-whatsapp"></i>
-                <span>WhatsApp</span>
-            </a>
-        </li>
-        <li>
-            <a href="https://www.instagram.com/oskenbay_ii?igsh=bmZmcGRodG10a3Jw&utm_source=qr" target="_blank">
-                <i class="fa-brands fa-instagram"></i>
-                <span>Instagram</span>
-            </a>
-        </li>
-    </ul>
+    <!-- Әлеуметтік желі батырмалары -->
+    <ul class="social-buttons">
+        <li>
+            <a href="https://www.facebook.com/share/1XSUu7SKCK/?mibextid=wwXIfr" target="_blank">
+                <i class="fa-brands fa-facebook-f"></i>
+                <span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://wa.me/7783244107" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i>
+                <span>WhatsApp</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.instagram.com/oskenbay_ii?igsh=bmZmcGRodG10a3Jw&utm_source=qr" target="_blank">
+                <i class="fa-brands fa-instagram"></i>
+                <span>Instagram</span>
+            </a>
+        </li>
+    </ul>
 </footer>
 
 <!-- Font Awesome қосу -->
@@ -332,49 +339,49 @@ frameborder="0" allow="autoplay"></iframe>
 <style>
 /* Батырмалар стилі */
 .social-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
-    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    padding: 0;
 }
 
 .social-buttons li {
-    list-style: none;
+    list-style: none;
 }
 
 .social-buttons li a {
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    width: 150px;
-    height: 50px;
-    background: #fff;
-    border-radius: 10px;
-    padding: 0 15px;
-    color: #333;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    width: 150px;
+    height: 50px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 0 15px;
+    color: #333;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 .social-buttons li a i {
-    font-size: 20px;
-    margin-right: 10px;
-    transition: transform 0.3s ease;
+    font-size: 20px;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
 }
 
 .social-buttons li a span {
-    font-weight: bold;
-    transition: color 0.3s ease;
+    font-weight: bold;
+    transition: color 0.3s ease;
 }
 
 /* Hover эффекті - жанатын дизайн */
 .social-buttons li a:hover {
-    transform: translateY(-5px) scale(1.05);
-    color: #fff;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    transform: translateY(-5px) scale(1.05);
+    color: #fff;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
 /* Hover түстер */
@@ -384,84 +391,84 @@ frameborder="0" allow="autoplay"></iframe>
 
 /* Иконка hover кезінде аздап үлкейеді */
 .social-buttons li a:hover i {
-    transform: scale(1.2);
+    transform: scale(1.2);
 }
 </style>
 
 <!-- Font Awesome қосу -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js"></script>
 
-    <script>
-        // 1. Түнгі режим функциясы
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-        }
+    <script>
+        // 1. Түнгі режим функциясы
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+        }
 
-        // 2. Роботпен сөйлесу
-        function toggleSpeech() {
-    const bubble = document.getElementById('bubble');
-    bubble.style.display = 'block';
+        // 2. Роботпен сөйлесу
+        function toggleSpeech() {
+    const bubble = document.getElementById('bubble');
+    bubble.style.display = 'block';
 
-    setTimeout(() => {
-        bubble.style.display = 'none';
-    }, 4000);
+    setTimeout(() => {
+        bubble.style.display = 'none';
+    }, 4000);
 }
 
-        // 3. Сабақты ашу және есептерді құру
-        function openLesson(name, videoUrl) {
-            document.getElementById('lesson-placeholder').style.display = 'none';
-            const box = document.getElementById('lesson-content');
-            box.style.display = 'block';
-            
-            document.getElementById('lesson-title').innerText = name + " негіздері";
-            document.getElementById('video').src = videoUrl;
+        // 3. Сабақты ашу және есептерді құру
+        function openLesson(name, videoUrl) {
+            document.getElementById('lesson-placeholder').style.display = 'none';
+            const box = document.getElementById('lesson-content');
+            box.style.display = 'block';
+            
+            document.getElementById('lesson-title').innerText = name + " негіздері";
+            document.getElementById('video').src = videoUrl;
 
-            // 50 есепті автоматты құру
-            const grid = document.getElementById('task-grid');
-            grid.innerHTML = '';
-            for(let i=1; i<=50; i++) {
-                const btn = document.createElement('button');
-                btn.className = 'task-btn';
-                btn.innerText = i;
-                btn.onclick = function() { alert(name + " тілі бойынша #" + i + " тапсырма: Код жазыңыз."); };
-                grid.appendChild(btn);
-            }
-            
-            // Сабаққа автоматты жылжу
-            window.location.hash = '#trial';
-        }
-    </script>
-    <script>
-  // YouTube API жүктеу
-  var tag = document.createElement('script');
-  tag.src = "https://www.youtube.com/iframe_api";
-  var firstScriptTag = document.getElementsByTagName('script')[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            // 50 есепті автоматты құру
+            const grid = document.getElementById('task-grid');
+            grid.innerHTML = '';
+            for(let i=1; i<=50; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'task-btn';
+                btn.innerText = i;
+                btn.onclick = function() { alert(name + " тілі бойынша #" + i + " тапсырма: Код жазыңыз."); };
+                grid.appendChild(btn);
+            }
+            
+            // Сабаққа автоматты жылжу
+            window.location.hash = '#trial';
+        }
+    </script>
+    <script>
+  // YouTube API жүктеу
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-  var player;
-  function onYouTubeIframeAPIReady() {
-      player = new YT.Player('youtubePlayer', {
-          events: {
-              'onReady': onPlayerReady
-          }
-      });
-  }
+  var player;
+  function onYouTubeIframeAPIReady() {
+      player = new YT.Player('youtubePlayer', {
+          events: {
+              'onReady': onPlayerReady
+          }
+      });
+  }
 
-  function onPlayerReady(event) {
-      var isPlaying = false;
-      var btn = document.getElementById('musicControl');
+  function onPlayerReady(event) {
+      var isPlaying = false;
+      var btn = document.getElementById('musicControl');
 
-      btn.addEventListener('click', function() {
-          if (!isPlaying) {
-              player.playVideo();
-              btn.textContent = "⏹️";
-          } else {
-              player.pauseVideo();
-              btn.textContent = "▶️";
-          }
-          isPlaying = !isPlaying;
-      });
-  }
+      btn.addEventListener('click', function() {
+          if (!isPlaying) {
+              player.playVideo();
+              btn.textContent = "⏹️";
+          } else {
+              player.pauseVideo();
+              btn.textContent = "▶️";
+          }
+          isPlaying = !isPlaying;
+      });
+  }
 </script>
 <title>CodeSchool | Сабақ</title>
 <style>
@@ -562,110 +569,401 @@ div.appendChild(t);
 </script>
 <style>
 .comment-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 70px 20px;
-    background-color: #f8fafc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 70px 20px;
+    background-color: #f8fafc;
 }
 .feedback-card {
-    margin: 0 auto;
+    margin: 0 auto;
 }
 .feedback-card {
-    background: #ffffff;
-    width: 100%;
-    max-width: 420px;
-    padding: 32px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04),
-                0 8px 10px -6px rgba(0, 0, 0, 0.04);
-    border: 1px solid #f1f5f9;
+    background: #ffffff;
+    width: 100%;
+    max-width: 420px;
+    padding: 32px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04),
+                0 8px 10px -6px rgba(0, 0, 0, 0.04);
+    border: 1px solid #f1f5f9;
 }
 
 .feedback-card h2 {
-    font-size: 24px;
-    font-weight: 600;
-    color: #1e293b;
-    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    color: #1e293b;
+    text-align: center;
 }
 
 .feedback-card p {
-    text-align: center;
-    color: #64748b;
-    font-size: 14px;
-    margin-bottom: 24px;
+    text-align: center;
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 24px;
 }
 
 .input-group {
-    margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .input-group label {
-    display: block;
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 8px;
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
 }
 
 .input-group input,
 .input-group textarea {
-    width: 100%;
-    padding: 12px 16px;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    font-size: 15px;
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 15px;
 }
 
 .input-group input:focus,
 .input-group textarea:focus {
-    outline: none;
-    border-color: #25D366;
-    box-shadow: 0 0 0 4px rgba(37, 211, 102, 0.1);
+    outline: none;
+    border-color: #25D366;
+    box-shadow: 0 0 0 4px rgba(37, 211, 102, 0.1);
 }
 
 #sendBtn {
-    width: 100%;
-    padding: 14px;
-    background-color: #25D366;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
+    width: 100%;
+    padding: 14px;
+    background-color: #25D366;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
 }
 
 #sendBtn:hover {
-    background-color: #22c35e;
+    background-color: #22c35e;
+}
+    /* --- АДАПТИВТІ СТИЛЬДЕР (Телефондар үшін) --- */
+
+@media (max-width: 768px) {
+    /* Header-ді ыңғайлы ету */
+    header {
+        padding: 10px 20px;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    nav a {
+        margin: 0 5px;
+        font-size: 12px;
+    }
+
+    /* Басты бет (Hero section) */
+    .home h1 {
+        font-size: 1.8rem;
+    }
+
+    .home p {
+        font-size: 0.9rem;
+        padding: 0 10px;
+    }
+
+    /* Секциялардың ішкі бос орындары */
+    section {
+        padding: 40px 5%;
+    }
+
+    /* Карточкаларды бір қатарға жинау */
+    .cards {
+        grid-template-columns: 1fr; /* Телефонда карточкалар бірінің астына бірі тұрады */
+    }
+
+    /* Робот ассистентті кішірейту */
+    .robot-fixed {
+        width: 80px;
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .speech-bubble {
+        bottom: 100px;
+        right: 20px;
+        font-size: 13px;
+        width: 180px;
+    }
+
+    /* Футерді реттеу */
+    .social-buttons {
+        flex-direction: column; /* Әлеуметтік желілер тігінен тұрады */
+        align-items: center;
+    }
+
+    .social-buttons li a {
+        width: 200px;
+    }
+
+    /* Тапсырмалар торын реттеу (Task Grid) */
+    .task-grid {
+        grid-template-columns: repeat(5, 1fr); /* 10-ның орнына 5 баған */
+    }
+
+    /* Пікір қалдыру блогын экранға сыйғызу */
+    .feedback-card {
+        padding: 20px;
+        width: 95%;
+    }
+
+    /* Музыка батырмасын реттеу */
+    #musicControl {
+        left: 50%;
+        top: auto;
+        bottom: 20px;
+        transform: translateX(-50%);
+        width: 80%;
+    }
+}
+
+/* Өте кішкентай экрандар үшін (iPhone SE т.б) */
+@media (max-width: 400px) {
+    .task-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    header h2 {
+        font-size: 1.2rem;
+    }
+}
+    @media (max-width: 480px) {
+    /* Жалпы шрифттерді кішірейту */
+    html { font-size: 14px; }
+    
+    header {
+        padding: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    header h2 { font-size: 1.2rem; width: 100%; text-align: center; }
+    
+    nav { 
+        margin-top: 10px;
+        display: flex;
+        gap: 5px;
+        overflow-x: auto; /* Мәзір сыймаса, жылжытуға болады */
+        width: 100%;
+        padding-bottom: 5px;
+    }
+
+    nav a { 
+        font-size: 10px !important; 
+        margin: 0 5px !important; 
+        white-space: nowrap; 
+    }
+
+    /* Басты беттегі сурет пен жазу */
+    .home { height: 60vh; padding: 20px; }
+    .home h1 { font-size: 1.5rem !important; }
+    .home p { font-size: 0.8rem !important; }
+
+    /* Карточкаларды кішірейту */
+    section { padding: 30px 15px; }
+    .card { 
+        padding: 15px; 
+        border-radius: 12px; 
+    }
+    .card h3 { font-size: 1.1rem; }
+    .card p { font-size: 0.85rem; }
+    .card img { width: 40px; }
+
+    /* Роботты кішірейтіп, бұрышқа тығып қою */
+    .robot-fixed {
+        width: 60px;
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    /* Музыка батырмасы */
+    #musicControl {
+        font-size: 10px;
+        padding: 5px 10px;
+        top: 5px;
+        left: 85%;
+    }
+}
+    /* Мұндай стильдер қатар санын тез көбейтеді */
+.card {
+    background-color: var(--card-bg);
+    padding-top: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+    border-radius: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05);
+    border-bottom-width: 5px;
+    border-bottom-style: solid;
+    border-bottom-color: var(--accent);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    transition-property: all;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+}
+    /* --- АНИМАЦИЯЛАР (Қатар санын көбейтеді) --- */
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* --- МОБИЛЬДІ МӘЗІРДІ ТҮЗЕТУ --- */
+@media screen and (max-width: 768px) {
+    .nav-menu {
+        display: none; /* Әдепкіде жасыру */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: var(--header-bg);
+        z-index: 999;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .nav-menu.active {
+        display: flex; /* Батырманы басқанда шығады */
+        animation: fadeIn 0.5s ease;
+    }
+
+    .nav-item {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        font-size: 1.5rem;
+    }
+}
+
+/* --- КОД РЕДАКТОРЫНЫҢ СТИЛЬДЕРІ --- */
+.editor-container {
+    display: flex;
+    flex-direction: row;
+    height: 500px;
+    background: #1e1e1e;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid #333;
+}
+
+.line-numbers {
+    width: 40px;
+    background: #252526;
+    color: #858585;
+    text-align: right;
+    padding-right: 10px;
+    padding-top: 10px;
+    font-family: 'Courier New', monospace;
+    user-select: none;
 }
 </style>
 <script>
 document.getElementById("sendBtn").addEventListener("click", function () {
 
-    const phoneNumber = "7783244107"; // 👉 номеріңді жаз
-    const name = document.getElementById("name").value.trim();
-    const message = document.getElementById("message").value.trim();
+    const phoneNumber = "7783244107"; // 👉 номеріңді жаз
+    const name = document.getElementById("name").value.trim();
+    const message = document.getElementById("message").value.trim();
 
-    if (!name || !message) {
-        alert("Өтініш, барлық өрістерді толтырыңыз");
-        return;
-    }
+    if (!name || !message) {
+        alert("Өтініш, барлық өрістерді толтырыңыз");
+        return;
+    }
 
-    const fullMessage = 
-        "Сәлеметсіз бе!%0A" +
-        "Аты: " + name + "%0A" +
-        "Пікірі: " + message;
+    const fullMessage = 
+        "Сәлеметсіз бе!%0A" +
+        "Аты: " + name + "%0A" +
+        "Пікірі: " + message;
 
-    const url = "https://wa.me/" + phoneNumber + "?text=" + fullMessage;
+    const url = "https://wa.me/" + phoneNumber + "?text=" + fullMessage;
 
-    window.open(url, "_blank");
+    window.open(url, "_blank");
 
-    // Өрістерді тазалау
-    document.getElementById("name").value = "";
-    document.getElementById("message").value = "";
+    // Өрістерді тазалау
+    document.getElementById("name").value = "";
+    document.getElementById("message").value = "";
 });
 
+const tasksData = {
+    python: [
+        { id: 1, title: "Айнымалылар", desc: "Екі санды қосу бағдарламасын жаз." },
+        { id: 2, title: "Input/Output", desc: "Пайдаланушы атын сұрап, сәлемдесу." },
+        { id: 3, title: "Деректер типтері", desc: "Бүтін санды бөлшек санға айналдыр." },
+        // Осылай 50-ге дейін жалғастыру...
+    ],
+    cpp: [
+        { id: 1, title: "Hello World", desc: "Экранға мәтін шығару." },
+        // Тағы 50 тапсырма...
+    ]
+};
+    // Тіркелу формасын тексеру (Validation)
+function validateLogin(event) {
+    // 405 қатесін болдырмау үшін алдын ала өңдеу
+    event.preventDefault();
+    
+    const email = document.getElementById('email-input').value;
+    const password = document.getElementById('pass-input').value;
+    
+    if (email.length < 5) {
+        alert("Электрондық поштаны дұрыс енгізіңіз");
+        return false;
+    }
+    
+    if (password.length < 6) {
+        alert("Құпия сөз кемінде 6 таңбадан тұруы керек");
+        return false;
+    }
+    
+    console.log("Жүйеге кіру орындалуда...");
+    window.location.href = "/dashboard";
+}
 
+// Python Кодты "Іске қосу" симуляциясы
+function runCode() {
+    const code = document.getElementById('code-input').value;
+    const terminal = document.getElementById('terminal-output');
+    
+    terminal.innerHTML = "> Код тексерілуде...<br>";
+    
+    setTimeout(() => {
+        if (code.includes("print('Salem')") || code.includes('print("Salem")')) {
+            terminal.innerHTML += "<span style='color: #4caf50;'>Salem</span><br>";
+            terminal.innerHTML += "<br>✅ Тапсырма сәтті орындалды! +10 XP";
+        } else {
+            terminal.innerHTML += "<span style='color: #f44336;'>Қате:</span> Экранға 'Salem' деп шығарыңыз.";
+        }
+    }, 1000);
+}
 </script>
 </body>
-</html>
+</html>                      енді ерор шықпайма
