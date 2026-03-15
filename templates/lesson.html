@@ -3,169 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BilimTech — Оқу Платформасы</title>
+    <title>BilimTech — Платформа</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
         :root {
-            --primary: #00a8ff;
-            --success: #2ecc71;
-            --bg: #0f0f12;
-            --sidebar: #15151a;
-            --panel: #1a1a20;
+            --bg: #f8fafc;
+            --white: #ffffff;
+            --primary: #4f46e5;
+            --text-main: #0f172a;
+            --text-dim: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --accent: #f1f5f9;
+            --border: #e2e8f0;
         }
 
-        * { margin:0; padding:0; box-sizing:border-box; font-family:'Inter', sans-serif; }
-        body { background: var(--bg); color: #fff; overflow: hidden; }
+        * { margin:0; padding:0; box-sizing:border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--bg); color: var(--text-main); height: 100vh; overflow: hidden; }
 
-        .app-container { display:flex; height:100vh; }
-        .sidebar { width:280px; background: var(--sidebar); border-right:1px solid #333; display:flex; flex-direction:column; }
-        .sidebar-top { padding:20px; display:flex; align-items:center; gap:15px; background:#1a1a22; border-bottom:1px solid #333; }
-        .home-btn { background:none; border:none; color:#fff; font-size:24px; cursor:pointer; }
-        .task-list { flex:1; overflow-y:auto; padding:15px; }
-        .task-list::-webkit-scrollbar { width:4px; }
-        .task-list::-webkit-scrollbar-thumb { background:#333; border-radius:10px; }
-        .task-item { padding:12px; background:#22222a; border-radius:10px; margin-bottom:8px; cursor:pointer; border:1px solid transparent; display:flex; align-items:center; gap:10px; font-size:14px; }
-        .task-item.active { border-color: var(--primary); background: rgba(0,168,255,0.1); }
-        .task-item i { color: var(--success); }
-
-        .workspace { flex:1; display:flex; }
-        .theory-section { width:400px; padding:30px; border-right:1px solid #333; background:#121217; display:flex; flex-direction:column; }
-        .xp-badge { color:#f1c40f; font-weight:bold; margin-bottom:10px; }
-        .progress-container { width:100%; height:6px; background:#333; border-radius:10px; overflow:hidden; }
-        .progress-fill { height:100%; background: var(--success); width:0%; transition:0.4s; }
-        .desc-box { background:#1a1a20; padding:20px; border-radius:12px; margin-top:20px; border-left:4px solid var(--primary); line-height:1.6; }
+        .app-container { display: flex; height: 100vh; background: var(--white); }
         
-        .editor-section { flex:1; display:flex; flex-direction:column; background:#1e1e1e; }
-        .editor-nav { padding:10px 20px; background:#25252d; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #333; }
-        #code-editor { flex:1; background:#1e1e1e; color:#d4d4d4; padding:25px; font-family:'Consolas', monospace; font-size:18px; border:none; outline:none; resize:none; }
-        .run-btn { background: var(--success); color:#fff; border:none; padding:8px 20px; border-radius:6px; cursor:pointer; font-weight:bold; }
-        .terminal { height:200px; background:#000; padding:20px; border-top:2px solid #333; font-family:monospace; }
-        .console-out { color: var(--success); margin-top:10px; }
-        .ai-btn { width:100%; margin-top:20px; padding:10px; background:transparent; border:1px solid var(--primary); color: var(--primary); border-radius:8px; cursor:pointer; }
-        .hint-text { margin-top:10px; padding:10px; background: rgba(0,168,255,0.05); border-radius:8px; font-size:13px; display:none; }
+        /* Sidebar */
+        .sidebar { width: 320px; border-right: 1px solid var(--border); display: flex; flex-direction: column; background: #fcfcfd; }
+        .sidebar-header { padding: 25px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 15px; }
+        .back-btn { background: #fff; border: 1px solid var(--border); border-radius: 10px; width: 40px; height: 40px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        .back-btn:hover { background: var(--accent); }
+        
+        .task-list { flex: 1; overflow-y: auto; padding: 20px; }
+        .task-node {
+            padding: 15px; margin-bottom: 10px; border-radius: 14px; font-size: 14px;
+            display: flex; align-items: center; gap: 12px; cursor: not-allowed; opacity: 0.5;
+            border: 1px solid transparent; transition: 0.3s;
+        }
+        .task-node.unlocked { cursor: pointer; opacity: 1; background: #fff; border: 1px solid var(--border); color: var(--text-main); }
+        .task-node.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2); }
+        .task-node i { font-size: 18px; }
+
+        /* Main Content */
+        .content { flex: 1; display: flex; flex-direction: column; }
+        .theory-area { height: 40%; padding: 40px; overflow-y: auto; border-bottom: 1px solid var(--border); background: #fff; }
+        .theory-label { font-size: 12px; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; }
+        .theory-text { line-height: 1.8; color: #334155; font-size: 17px; margin-bottom: 20px; }
+        .example-box { background: #0f172a; color: #e2e8f0; padding: 20px; border-radius: 12px; font-family: 'JetBrains Mono'; font-size: 14px; position: relative; }
+        
+        /* Editor Area */
+        .practice-area { flex: 1; display: flex; background: #f1f5f9; padding: 25px; gap: 25px; }
+        .editor-container { flex: 1; display: flex; flex-direction: column; background: #fff; border-radius: 20px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        .editor-top { padding: 12px 25px; background: #fafafa; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        #code-input { flex: 1; padding: 25px; font-family: 'JetBrains Mono'; font-size: 16px; border: none; outline: none; resize: none; background: #fff; color: #1e293b; line-height: 1.5; }
+        
+        /* Terminal */
+        .terminal { width: 380px; background: #0f172a; border-radius: 20px; padding: 25px; color: #f8fafc; font-family: 'JetBrains Mono'; font-size: 14px; white-space: pre-wrap; display: flex; flex-direction: column; }
+        .terminal-header { font-size: 11px; color: #64748b; margin-bottom: 15px; border-bottom: 1px solid #1e293b; padding-bottom: 10px; font-weight: 800; }
+        #out { flex: 1; }
+
+        .btn-run { background: var(--primary); color: white; border: none; padding: 10px 25px; border-radius: 10px; font-weight: 600; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 8px; }
+        .btn-run:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); }
+        .btn-next { background: var(--success); color: white; border: none; padding: 14px; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 20px; transition: 0.2s; }
+        .btn-next:hover { opacity: 0.9; }
     </style>
 </head>
 <body>
 
 <div class="app-container">
     <aside class="sidebar">
-        <div class="sidebar-top">
-            <button class="home-btn" onclick="goHome()"><i class='bx bx-left-arrow-alt'></i></button>
-            <span id="course-title">Оқу курсы</span>
+        <div class="sidebar-header">
+            <button class="back-btn" onclick="location.href='/home'"><i class='bx bx-left-arrow-alt'></i></button>
+            <div>
+                <div style="font-size: 12px; color: var(--text-dim); font-weight: 600;">КУРС</div>
+                <div id="cur-lang" style="font-weight: 800; font-size: 18px;">Таңдалмаған</div>
+            </div>
         </div>
         <div id="task-list" class="task-list"></div>
     </aside>
-    <main class="workspace">
-        <section class="theory-section">
-            <div class="theory-header">
-                <div class="xp-badge">✨ <span id="xp-val">0</span> XP</div>
-                <div class="progress-container"><div id="progress-fill" class="progress-fill"></div></div>
-            </div>
-            <div class="theory-body">
-                <h2 id="lesson-name">Тапсырма</h2>
-                <div id="lesson-desc" class="desc-box"></div>
-                <div class="ai-box">
-                    <button onclick="askAI()" class="ai-btn"><i class='bx bx-bot'></i> ЖИ Кеңесі</button>
-                    <div id="ai-hint" class="hint-text"></div>
+
+    <main class="content">
+        <div class="theory-area">
+            <div class="theory-label">📖 ТҮСІНДІРМЕ</div>
+            <div id="theory-content" class="theory-text"></div>
+            <div class="theory-label">🎯 ТАПСЫРМА</div>
+            <div id="task-text" style="font-weight: 600; font-size: 18px;"></div>
+        </div>
+
+        <div class="practice-area">
+            <div class="editor-container">
+                <div class="editor-top">
+                    <span id="file-name" style="font-size: 13px; font-weight: 600; color: var(--text-dim);">main.py</span>
+                    <button class="btn-run" onclick="checkCode()"><i class='bx bx-play' style="font-size: 20px;"></i> Іске қосу</button>
                 </div>
+                <textarea id="code-input" spellcheck="false" placeholder="Кодты осында жазыңыз..."></textarea>
             </div>
-        </section>
-        <section class="editor-section">
-            <div class="editor-nav">
-                <span id="file-name">main.py</span>
-                <button class="run-btn" onclick="checkCode()"><i class='bx bx-play'></i> Іске қосу</button>
-            </div>
-            <textarea id="code-editor" spellcheck="false" placeholder="Кодты осында жазыңыз..."></textarea>
             <div class="terminal">
-                <div class="terminal-head">ТЕРМИНАЛ</div>
-                <div id="console-out" class="console-out">> Дайын...</div>
+                <div class="terminal-header">CONSOLE OUTPUT</div>
+                <div id="out">> Жүйе дайын...</div>
             </div>
-        </section>
+        </div>
     </main>
 </div>
 
 <script>
-// URL-ден тілді анықтау
-const params = new URLSearchParams(window.location.search);
-let currentLang = params.get('lang') || 'Python';
-document.getElementById('course-title').innerText = currentLang + " Journey";
-document.getElementById('file-name').innerText = currentLang === 'Python' ? 'main.py' : (currentLang === 'cpp' ? 'main.cpp' : 'Program.cs');
+// Барлық тілдерге арналған 20 сабақ базасы
+const lessonsData = {
+    'Python': [
+        { title: "Кіріспе", theory: "Python-да экранға мәлімет шығару үшін print() қолданылады.", task: "'Salem' сөзін экранға шығарыңыз.", check: "print('Salem')", hint: "print('Salem') деп жазыңыз." },
+        { title: "Айнымалылар", theory: "Айнымалы мәнді сақтау үшін керек. Мысалы: x = 5", task: "x айнымалысына 100-ді меншіктеңіз.", check: "x=100", hint: "x = 100" },
+        { title: "Мәлімет түрлері", theory: "Мәтін (string) тырнақшамен жазылады.", task: "name айнымалысына 'Bilim' мәнін беріңіз.", check: "name='Bilim'", hint: "name = 'Bilim'" },
+        { title: "Сандармен жұмыс", theory: "Қосу үшін + белгісі қолданылады.", task: "print(5 + 5) кодын жазыңыз.", check: "print(5+5)", hint: "Бес пен бесті қосып шығарыңыз." }
+        // Қалған 16 сабақ төменде автоматты түрде қосылады
+    ],
+    'C++': [
+        { title: "Кіріспе", theory: "C++ тілінде экранға шығару үшін std::cout қолданылады.", task: "std::cout << 'Hello'; кодын жазыңыз.", check: "std::cout<<'Hello'", hint: "std::cout << 'Hello';" }
+    ],
+    'C#': [
+        { title: "Кіріспе", theory: "C# тілінде Console.WriteLine() қолданылады.", task: "Console.WriteLine('Hi'); деп жазыңыз.", check: "Console.WriteLine('Hi')", hint: "Console.WriteLine('Hi');" }
+    ]
+};
 
-// Тапсырмалар базасы
-const database = [];
-for(let i=1; i<=20; i++){
-    database.push({
-        name: i === 1 ? `1. Кіріспе (${currentLang})` : `${i}. Сабақ`,
-        desc: i === 1 ? `Экранға 'Salem' деп шығарыңыз.` : `${currentLang} тіліндегі ${i}-ші тапсырма.`,
-        check: i === 1 ? "print('Salem')" : "code",
-        hint: i === 1 ? "print('Salem') деп жазыңыз." : "Тапсырманы мұқият орындаңыз."
-    });
-}
+// 20-ға дейін толтыру функциясы
+['Python', 'C#', 'C++'].forEach(lang => {
+    for(let i = lessonsData[lang].length; i < 20; i++) {
+        lessonsData[lang].push({
+            title: (i+1) + "-сабақ",
+            theory: `${lang} тіліндегі күрделі құрылымдарды үйренуді жалғастырамыз.`,
+            task: `Кодты жазыңыз: lesson${i+1}`,
+            check: `lesson${i+1}`,
+            hint: `Тек қана lesson${i+1} деп жазыңыз.`
+        });
+    }
+});
 
-let activeIdx = 0, xp = 0;
+let curL = 'Python', curI = 0, unlocked = 0;
 
-function renderTasks(){
+// URL-ден тілді оқу және бастау
+window.onload = function() {
+    const params = new URLSearchParams(window.location.search);
+    const langParam = params.get('lang');
+    if(langParam) curL = langParam;
+    
+    document.getElementById('cur-lang').innerText = curL;
+    document.getElementById('file-name').innerText = curL === 'Python' ? 'main.py' : (curL === 'C#' ? 'Program.cs' : 'main.cpp');
+    
+    const saved = localStorage.getItem(`prog_${curL}`);
+    unlocked = saved ? parseInt(saved) : 0;
+    curI = unlocked;
+    
+    renderList();
+    loadLesson();
+};
+
+function renderList() {
     const list = document.getElementById('task-list');
     list.innerHTML = '';
-    database.forEach((task, i) => {
-        const item = document.createElement('div');
-        item.className = `task-item ${i === activeIdx ? 'active' : ''}`;
-        const icon = i < activeIdx ? "<i class='bx bxs-check-circle'></i>" : `<span>${i+1}</span>`;
-        item.innerHTML = `${icon} <p>${task.name}</p>`;
-        item.onclick = () => loadTask(i);
-        list.appendChild(item);
+    lessonsData[curL].forEach((l, i) => {
+        const node = document.createElement('div');
+        const isUnlocked = i <= unlocked;
+        node.className = `task-node ${isUnlocked ? 'unlocked' : ''} ${i === curI ? 'active' : ''}`;
+        node.innerHTML = `<i class='bx ${i < unlocked ? 'bxs-check-circle' : (isUnlocked ? 'bx-play-circle' : 'bx-lock-alt')}'></i> <span>${l.title}</span>`;
+        if(isUnlocked) node.onclick = () => { curI = i; renderList(); loadLesson(); };
+        list.appendChild(node);
     });
 }
 
-function loadTask(idx){
-    activeIdx = idx;
-    const task = database[activeIdx];
-    document.getElementById('lesson-name').innerText = task.name;
-    document.getElementById('lesson-desc').innerText = task.desc;
-    document.getElementById('code-editor').value = "";
-    document.getElementById('ai-hint').style.display = 'none';
-    renderTasks();
-    document.getElementById('progress-fill').style.width = ((activeIdx / database.length) * 100) + "%";
+function loadLesson() {
+    const l = lessonsData[curL][curI];
+    document.getElementById('theory-content').innerHTML = l.theory + `<div class="example-box" style="margin-top:15px;"><span style="color:#64748b">// Мысал:</span><br>${l.check}</div>`;
+    document.getElementById('task-text').innerText = l.task;
+    document.getElementById('code-input').value = "";
+    document.getElementById('out').innerHTML = "> Дайын...";
+    document.getElementById('out').style.color = "#94a3b8";
 }
 
-function checkCode(){
-    const userCode = document.getElementById('code-editor').value.replace(/\s+/g,'');
-    const correctCode = database[activeIdx].check.replace(/\s+/g,'');
-    const out = document.getElementById('console-out');
-    
-    out.innerText = "> Код тексерілуде...";
-    out.style.color = "#2ecc71";
+function checkCode() {
+    const input = document.getElementById('code-input').value.trim();
+    const userClean = input.replace(/\s+/g,'').replace(/['"]/g, '"');
+    const correctClean = lessonsData[curL][curI].check.replace(/\s+/g,'').replace(/['"]/g, '"');
+    const out = document.getElementById('out');
+
+    out.innerHTML = "> Код орындалуда...\n";
     
     setTimeout(() => {
-        // Қарапайым тексеру логикасы
-        if(userCode.includes(correctCode) || userCode.length > 5){
-            out.innerText = "> ТАМАША! Тапсырма орындалды. +50 XP ✔";
-            xp += 50;
-            document.getElementById('xp-val').innerText = xp;
-            if(activeIdx < database.length - 1){
-                activeIdx++;
-                setTimeout(() => loadTask(activeIdx), 1000);
+        if(userClean.includes(correctClean)) {
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#4f46e5', '#10b981'] });
+            out.innerHTML = `<div style="color: #10b981; font-weight: 800;">НӘТИЖЕ: СӘТТІ! ✅</div><div style="margin-top:10px;">Бағдарлама аяқталды. Тапсырма орындалды.</div>`;
+            
+            if(curI === unlocked && unlocked < 19) {
+                unlocked++;
+                localStorage.setItem(`prog_${curL}`, unlocked);
+                renderList();
+            }
+
+            if(curI < 19) {
+                const nextBtn = document.createElement('button');
+                nextBtn.innerText = "КЕЛЕСІ САБАҚ →";
+                nextBtn.className = "btn-next";
+                nextBtn.onclick = () => { curI++; renderList(); loadLesson(); };
+                out.appendChild(nextBtn);
+            } else {
+                out.innerHTML += "<br><div style='color: #fbbf24; font-weight:800;'>🏆 КУРСТЫ АЯҚТАДЫҢЫЗ!</div>";
             }
         } else {
-            out.style.color = "#ff4757";
-            out.innerText = "> ҚАТЕ: Код дұрыс емес.";
+            out.innerHTML = `<div style="color: #ef4444; font-weight: 800;">ҚАТЕ ШЫҚТЫ ❌</div><div style="font-size: 12px; margin-top:10px; color: #94a3b8;">Көмек: ${lessonsData[curL][curI].hint}</div>`;
         }
-    }, 800);
+    }, 600);
 }
-
-function askAI(){
-    const task = database[activeIdx];
-    const hint = document.getElementById("ai-hint");
-    hint.innerText = "🤖 ЖИ кеңесі: " + task.hint;
-    hint.style.display = 'block';
-}
-
-function goHome(){
-    window.location.href = "/home"; // Басты бетке қайту
-}
-
-renderTasks();
-loadTask(0);
 </script>
 </body>
 </html>
