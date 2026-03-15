@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BilimTech — Адаптивті Платформа</title>
+    <title>BilimTech — Сабақтар</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap');
 
+        /* ТҮСТЕР ПАЛИТРАСЫ */
         :root { 
             --bg-color: #f4f1ea; 
             --sidebar-bg: #ffffff;
@@ -20,6 +21,7 @@
             --terminal-bg: #1e293b;
         }
 
+        /* ТҮНГІ РЕЖИМ */
         .dark-mode {
             --bg-color: #1b1b1b;
             --sidebar-bg: #2d2d2d;
@@ -31,101 +33,74 @@
             --terminal-bg: #000000;
         }
 
-        * { margin:0; padding:0; box-sizing:border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        * { margin:0; padding:0; box-sizing:border-box; font-family: 'Plus Jakarta Sans', sans-serif; transition: 0.3s; }
         body { background: var(--bg-color); color: var(--text-color); min-height: 100vh; overflow-x: hidden; }
 
-        /* Контейнерді икемді ету */
         .app-container { display: flex; height: 100vh; }
-
-        /* Sidebar стилі және адаптивтілігі */
+        
+        /* SIDEBAR */
         .sidebar { 
             width: 320px; 
             border-right: 1px solid var(--border); 
             display: flex; 
             flex-direction: column; 
             background: var(--sidebar-bg); 
-            transition: transform 0.3s ease;
-            z-index: 1000;
         }
 
-        /* Негізгі контент */
+        /* MAIN CONTENT */
         .main-content { flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
-
-        /* Теория бөлімі */
-        .theory-section { padding: 30px; background: var(--card-bg); border-bottom: 1px solid var(--border); }
-
-        /* Практика бөлімі (редактор мен консоль) */
-        .practice-section { 
-            display: flex; 
-            padding: 20px; 
-            gap: 20px; 
-            flex: 1; 
-            min-height: 500px;
+        
+        .header-nav {
+            padding: 15px 30px;
+            background: var(--header-bg);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .editor-box { flex: 2; display: flex; flex-direction: column; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); min-height: 300px; }
+        .mode-toggle { cursor: pointer; font-size: 24px; color: var(--accent); }
+
+        .theory-section { padding: 30px; background: var(--card-bg); border-bottom: 1px solid var(--border); }
+        .practice-section { display: flex; padding: 20px; gap: 20px; flex: 1; }
+        
+        .editor-box { flex: 2; display: flex; flex-direction: column; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); overflow: hidden; }
         .terminal { flex: 1; background: var(--terminal-bg); border-radius: 15px; padding: 20px; color: #10b981; font-family: 'JetBrains Mono'; }
 
-        /* Мобильдік құрылғылар үшін Media Queries (Экран 768px-ден кіші болса) */
+        #code-input { width: 100%; height: 300px; padding: 20px; font-family: 'JetBrains Mono'; border: none; outline: none; background: transparent; color: var(--text-color); resize: none; }
+
+        .btn-run { background: var(--accent); color: white; border: none; padding: 10px 25px; border-radius: 8px; cursor: pointer; font-weight: 700; }
+
+        /* АДАПТИВТІЛІК (МЕДИА СҰРАНЫСТАР) */
         @media (max-width: 768px) {
             .app-container { flex-direction: column; height: auto; }
-            
-            .sidebar { 
-                position: fixed; 
-                left: -320px; 
-                top: 0; 
-                bottom: 0; 
-                box-shadow: 10px 0 15px rgba(0,0,0,0.1);
-            }
-            .sidebar.open { left: 0; }
-
+            .sidebar { width: 100%; height: 300px; border-right: none; border-bottom: 1px solid var(--border); }
             .practice-section { flex-direction: column; }
-            
-            .theory-section { padding: 20px; }
-            
-            .terminal { width: 100%; min-height: 150px; }
-
-            /* Мобильдік мәзір батырмасы (бургер) */
-            .mobile-header {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: 15px;
-                background: var(--header-bg);
-                color: white;
-            }
+            .header-nav { padding: 15px; }
+            .editor-box, .terminal { width: 100%; }
         }
-
-        /* Жасырын элементтерді көрсету */
-        .mobile-header { display: none; }
-        @media (max-width: 768px) { .mobile-header { display: flex; } }
-
-        /* Батырмалар стилі */
-        .btn-run { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 800; }
-        #code-input { width: 100%; height: 250px; padding: 15px; font-family: 'JetBrains Mono'; border: none; outline: none; background: transparent; color: var(--text-color); resize: none; }
     </style>
 </head>
 <body>
 
-    <div class="mobile-header">
-        <i class='bx bx-menu' id="menu-icon" style="font-size: 30px; cursor: pointer;"></i>
-        <h4 id="mob-title">Python</h4>
-        <i class='bx bx-moon' onclick="toggleMode()" style="font-size: 24px;"></i>
-    </div>
+    <header class="header-nav">
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <button onclick="location.href='/home'" style="background:none; border:none; color:white; cursor:pointer; font-size:24px;"><i class='bx bx-left-arrow-alt'></i></button>
+            <h3 id="cur-lang">Python</h3>
+        </div>
+        <i class='bx bx-moon mode-toggle' id="modeBtn" onclick="toggleMode()"></i>
+    </header>
 
     <div class="app-container">
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header" style="padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
-                <h3 style="font-size: 18px;">BilimTech</h3>
-                <i class='bx bx-x' id="close-menu" style="font-size: 30px; cursor: pointer; display: none;"></i>
-            </div>
-            <div id="task-list" class="task-list" style="overflow-y: auto; padding: 15px;"></div>
+        <aside class="sidebar">
+            <div style="padding: 20px; font-weight: 800; border-bottom: 1px solid var(--border);">Сабақтар тізімі</div>
+            <div id="task-list" style="flex: 1; overflow-y: auto; padding: 15px;"></div>
         </aside>
 
         <main class="main-content">
             <div class="theory-section">
-                <div style="color: var(--accent); font-weight: 800; font-size: 12px; letter-spacing: 1px;">📖 ТЕОРИЯ</div>
-                <div id="theory-content" style="margin-top: 10px; font-size: 16px;"></div>
+                <div style="color: var(--accent); font-weight: 800; font-size: 12px; margin-bottom: 10px;">📖 ТЕОРИЯ</div>
+                <div id="theory-content"></div>
                 <div style="margin-top: 20px; padding: 15px; background: var(--bg-color); border-radius: 10px; border-left: 4px solid var(--accent);">
                     <strong>Тапсырма:</strong> <span id="task-text"></span>
                 </div>
@@ -133,61 +108,51 @@
 
             <div class="practice-section">
                 <div class="editor-box">
-                    <div style="padding: 10px 20px; background: var(--header-bg); color: white; display: flex; justify-content: space-between; align-items: center;">
-                        <span style="font-size: 12px;">main.py</span>
+                    <div style="padding: 10px 20px; background: rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border);">
+                        <span style="font-size: 12px; font-weight: 600;">main.py</span>
                         <button class="btn-run" onclick="checkCode()">Іске қосу</button>
                     </div>
                     <textarea id="code-input" spellcheck="false" placeholder="Кодты осында жазыңыз..."></textarea>
                 </div>
-
                 <div class="terminal">
-                    <div style="font-size: 10px; opacity: 0.6; margin-bottom: 10px;">КОНСОЛЬ</div>
-                    <div id="out">> Дайын...</div>
+                    <div style="font-size: 10px; opacity: 0.5; margin-bottom: 10px;">КОНСОЛЬ</div>
+                    <div id="out">> Нәтижені күтуде...</div>
                 </div>
             </div>
         </main>
     </div>
 
 <script>
-    // Мобильдік мәзірді ашу/жабу логикасы
-    const menuIcon = document.getElementById('menu-icon');
-    const closeMenu = document.getElementById('close-menu');
-    const sidebar = document.getElementById('sidebar');
-
-    if(menuIcon) {
-        menuIcon.onclick = () => { sidebar.classList.add('open'); closeMenu.style.display = 'block'; }
-    }
-    if(closeMenu) {
-        closeMenu.onclick = () => { sidebar.classList.remove('open'); closeMenu.style.display = 'none'; }
-    }
-
-    // Режим ауыстыру (Dark/Light)
+    // Түнгі режим логикасы
     function toggleMode() {
         document.body.classList.toggle('dark-mode');
+        const btn = document.getElementById('modeBtn');
         const isDark = document.body.classList.contains('dark-mode');
+        
+        btn.className = isDark ? 'bx bx-sun mode-toggle' : 'bx bx-moon mode-toggle';
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
     }
 
-    // Сабақтар базасы (Алдыңғы кодымыздағыдай)
+    // Тілді және прогресті анықтау
+    const params = new URLSearchParams(window.location.search);
+    let curLang = params.get('lang') || 'Python';
+    let curIdx = 0;
+    let unlocked = parseInt(localStorage.getItem(`unl_${curLang}`)) || 0;
+
     const lessonsData = {
         'Python': [
-            { title: "1. Кіріспе", theory: "Python-да <code>print()</code> қолданылады.", task: "'Salem' деп шығарыңыз.", check: "print('Salem')", hint: "print('Salem')" },
-            { title: "2. Айнымалылар", theory: "Айнымалы: <code>x = 10</code>", task: "x айнымалысына 5-ті меншіктеңіз.", check: "x=5", hint: "x = 5" }
-        ]
+            { title: "1. print() функциясы", theory: "Мәтін шығару үшін <code>print()</code> қолданыңыз.", task: "'Salem' мәтінін шығарыңыз.", check: "print('Salem')", hint: "print('Salem')" },
+            { title: "2. Айнымалылар", theory: "Мән сақтау үшін: <code>x = 5</code>", task: "x айнымалысына 10-ды меншіктеңіз.", check: "x=10", hint: "x = 10" }
+        ],
+        'C++': [{ title: "1. Кіріспе", theory: "C++-те <code>cout</code> қолданылады.", task: "'Hi' деп шығарыңыз.", check: "cout<<'Hi'", hint: "cout << 'Hi';" }]
     };
 
-    let curLang = 'Python', curIdx = 0, unlocked = 0;
-
     window.onload = () => {
-        const params = new URLSearchParams(window.location.search);
-        curLang = params.get('lang') || 'Python';
-        document.getElementById('mob-title').innerText = curLang;
-        
-        unlocked = parseInt(localStorage.getItem(`unl_${curLang}`)) || 0;
-        curIdx = unlocked;
-
-        if(localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');
-        
+        document.getElementById('cur-lang').innerText = curLang + " Курсы";
+        if(localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('modeBtn').className = 'bx bx-sun mode-toggle';
+        }
         renderList();
         loadLesson();
     };
@@ -205,19 +170,13 @@
             node.style.borderRadius = "10px";
             node.style.cursor = isUnlocked ? "pointer" : "not-allowed";
             node.style.opacity = isUnlocked ? "1" : "0.4";
-            node.style.background = i === curIdx ? "var(--header-bg)" : "var(--bg-color)";
+            node.style.background = i === curIdx ? "var(--header-bg)" : "rgba(0,0,0,0.05)";
             node.style.color = i === curIdx ? "white" : "var(--text-color)";
-            node.style.border = "1px solid var(--border)";
             
-            node.innerHTML = `<i class='bx ${i < unlocked ? 'bxs-check-circle' : 'bx-play'}'></i> ${l.title}`;
+            node.innerHTML = `<i class='bx ${i < unlocked ? 'bxs-check-circle' : 'bx-play-circle'}'></i> ${l.title}`;
             
             if(isUnlocked) {
-                node.onclick = () => { 
-                    curIdx = i; 
-                    renderList(); 
-                    loadLesson(); 
-                    if(window.innerWidth <= 768) sidebar.classList.remove('open');
-                };
+                node.onclick = () => { curIdx = i; renderList(); loadLesson(); };
             }
             list.appendChild(node);
         });
@@ -239,14 +198,14 @@
 
         if(code.includes(correct)) {
             confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-            out.innerHTML = `<span style="color: #10b981;">> КЕРЕМЕТ! ✅</span>`;
+            out.innerHTML = `<span style="color: #10b981;">> ДҰРЫС! ✅</span><br>Келесі сабақ ашылды.`;
             if(curIdx === unlocked && unlocked < lessons.length - 1) {
                 unlocked++;
                 localStorage.setItem(`unl_${curLang}`, unlocked);
                 renderList();
             }
         } else {
-            out.innerHTML = `<span style="color: #ef4444;">> ҚАТЕ! ❌</span>`;
+            out.innerHTML = `<span style="color: #ef4444;">> ҚАТЕ! ❌</span><br><small>Көмек: ${lessons[curIdx].hint}</small>`;
         }
     }
 </script>
