@@ -182,6 +182,11 @@
 </head>
 
 <body>
+    <div id="lock-screen" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(74, 93, 74, 0.95); z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; color:white; text-align:center; padding:20px;">
+    <h2>🚀 CodeSchool-ға қош келдіңіз!</h2>
+    <p>Сабақтарды бастау үшін алдымен тіркелуіңіз қажет</p>
+    <a href="/login" class="btn-start" style="margin-top:20px; font-size:1.2rem; padding:15px 40px;">ТІРКЕЛУ / КІРУ</a>
+</div>
 
    <div class="speech-bubble" id="bubble">
 Сәлем! Бүгін қандай тілді үйренеміз? 🚀
@@ -733,6 +738,63 @@ div.appendChild(t);
     
     header h2 {
         font-size: 1.2rem;
+    }
+}
+    @media (max-width: 480px) {
+    /* Жалпы шрифттерді кішірейту */
+    html { font-size: 14px; }
+    
+    header {
+        padding: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    header h2 { font-size: 1.2rem; width: 100%; text-align: center; }
+    
+    nav { 
+        margin-top: 10px;
+        display: flex;
+        gap: 5px;
+        overflow-x: auto; /* Мәзір сыймаса, жылжытуға болады */
+        width: 100%;
+        padding-bottom: 5px;
+    }
+
+    nav a { 
+        font-size: 10px !important; 
+        margin: 0 5px !important; 
+        white-space: nowrap; 
+    }
+
+    /* Басты беттегі сурет пен жазу */
+    .home { height: 60vh; padding: 20px; }
+    .home h1 { font-size: 1.5rem !important; }
+    .home p { font-size: 0.8rem !important; }
+
+    /* Карточкаларды кішірейту */
+    section { padding: 30px 15px; }
+    .card { 
+        padding: 15px; 
+        border-radius: 12px; 
+    }
+    .card h3 { font-size: 1.1rem; }
+    .card p { font-size: 0.85rem; }
+    .card img { width: 40px; }
+
+    /* Роботты кішірейтіп, бұрышқа тығып қою */
+    .robot-fixed {
+        width: 60px;
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    /* Музыка батырмасы */
+    #musicControl {
+        font-size: 10px;
+        padding: 5px 10px;
+        top: 5px;
+        left: 85%;
     }
 }
 </style>
