@@ -182,13 +182,6 @@
 </head>
 
 <body>
-    <div id="lock-screen" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(74, 93, 74, 0.95); z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; color:white; text-align:center; padding:20px;">
-    <h2>🚀 CodeSchool-ға қош келдіңіз!</h2>
-    <p>Сабақтарды бастау үшін алдымен тіркелуіңіз қажет</p>
-   <button onclick="document.getElementById('lock-screen').style.display='none'" class="btn-start" style="margin-top:20px; font-size:1.2rem; padding:15px 40px; border:none; cursor:pointer;">
-    ТІРКЕЛУ / КІРУ
-</button>
-</div>
 
    <div class="speech-bubble" id="bubble">
 Сәлем! Бүгін қандай тілді үйренеміз? 🚀
@@ -252,19 +245,19 @@ frameborder="0" allow="autoplay"></iframe>
                 <img src="https://cdn-icons-png.flaticon.com/512/5968/5968350.png" width="50">
                 <h3>Python</h3>
                 <p>Деректер талдау және AI үшін ең танымал тіл.</p>
-                <button onclick="openLesson('Python', 'https://www.youtube.com/embed/7At73HWmYIc')" class="btn-start">Таңдау</button>
+                <button onclick="window.location.href='/lesson?lang=Python'" class="btn-start">Таңдау</button>
             </div>
             <div class="card">
                 <img src="https://cdn-icons-png.flaticon.com/512/6132/6132222.png" width="50">
                 <h3>C++</h3>
                 <p>Жүйелік бағдарламалау және ойын жасау негізі.</p>
-                <button onclick="window.location.href='/lesson?lang=cpp'" class="btn-start">Таңдау</button>
+                <button onclick="window.location.href='/lesson?lang=C%2B%2B'" class="btn-start">Таңдау</button>
             </div>
             <div class="card">
                 <img src="https://cdn-icons-png.flaticon.com/512/6132/6132221.png" width="50">
                 <h3>C#</h3>
                 <p>Unity ойын платформасы мен бизнеске арналған.</p>
-                <button onclick="window.location.href='/lesson?lang=csharp'" class="btn-start">Таңдау</button>
+                <button onclick="window.location.href='/lesson?lang=C%23'" class="btn-start">Таңдау</button>
             </div>
         </div>
     </section>
@@ -645,248 +638,6 @@ div.appendChild(t);
 #sendBtn:hover {
     background-color: #22c35e;
 }
-    /* --- АДАПТИВТІ СТИЛЬДЕР (Телефондар үшін) --- */
-
-@media (max-width: 768px) {
-    /* Header-ді ыңғайлы ету */
-    header {
-        padding: 10px 20px;
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    nav {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
-    }
-
-    nav a {
-        margin: 0 5px;
-        font-size: 12px;
-    }
-
-    /* Басты бет (Hero section) */
-    .home h1 {
-        font-size: 1.8rem;
-    }
-
-    .home p {
-        font-size: 0.9rem;
-        padding: 0 10px;
-    }
-
-    /* Секциялардың ішкі бос орындары */
-    section {
-        padding: 40px 5%;
-    }
-
-    /* Карточкаларды бір қатарға жинау */
-    .cards {
-        grid-template-columns: 1fr; /* Телефонда карточкалар бірінің астына бірі тұрады */
-    }
-
-    /* Робот ассистентті кішірейту */
-    .robot-fixed {
-        width: 80px;
-        bottom: 10px;
-        right: 10px;
-    }
-
-    .speech-bubble {
-        bottom: 100px;
-        right: 20px;
-        font-size: 13px;
-        width: 180px;
-    }
-
-    /* Футерді реттеу */
-    .social-buttons {
-        flex-direction: column; /* Әлеуметтік желілер тігінен тұрады */
-        align-items: center;
-    }
-
-    .social-buttons li a {
-        width: 200px;
-    }
-
-    /* Тапсырмалар торын реттеу (Task Grid) */
-    .task-grid {
-        grid-template-columns: repeat(5, 1fr); /* 10-ның орнына 5 баған */
-    }
-
-    /* Пікір қалдыру блогын экранға сыйғызу */
-    .feedback-card {
-        padding: 20px;
-        width: 95%;
-    }
-
-    /* Музыка батырмасын реттеу */
-    #musicControl {
-        left: 50%;
-        top: auto;
-        bottom: 20px;
-        transform: translateX(-50%);
-        width: 80%;
-    }
-}
-
-/* Өте кішкентай экрандар үшін (iPhone SE т.б) */
-@media (max-width: 400px) {
-    .task-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-    
-    header h2 {
-        font-size: 1.2rem;
-    }
-}
-    @media (max-width: 480px) {
-    /* Жалпы шрифттерді кішірейту */
-    html { font-size: 14px; }
-    
-    header {
-        padding: 10px;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    header h2 { font-size: 1.2rem; width: 100%; text-align: center; }
-    
-    nav { 
-        margin-top: 10px;
-        display: flex;
-        gap: 5px;
-        overflow-x: auto; /* Мәзір сыймаса, жылжытуға болады */
-        width: 100%;
-        padding-bottom: 5px;
-    }
-
-    nav a { 
-        font-size: 10px !important; 
-        margin: 0 5px !important; 
-        white-space: nowrap; 
-    }
-
-    /* Басты беттегі сурет пен жазу */
-    .home { height: 60vh; padding: 20px; }
-    .home h1 { font-size: 1.5rem !important; }
-    .home p { font-size: 0.8rem !important; }
-
-    /* Карточкаларды кішірейту */
-    section { padding: 30px 15px; }
-    .card { 
-        padding: 15px; 
-        border-radius: 12px; 
-    }
-    .card h3 { font-size: 1.1rem; }
-    .card p { font-size: 0.85rem; }
-    .card img { width: 40px; }
-
-    /* Роботты кішірейтіп, бұрышқа тығып қою */
-    .robot-fixed {
-        width: 60px;
-        bottom: 10px;
-        right: 10px;
-    }
-    
-    /* Музыка батырмасы */
-    #musicControl {
-        font-size: 10px;
-        padding: 5px 10px;
-        top: 5px;
-        left: 85%;
-    }
-}
-    /* Мұндай стильдер қатар санын тез көбейтеді */
-.card {
-    background-color: var(--card-bg);
-    padding-top: 30px;
-    padding-right: 30px;
-    padding-bottom: 30px;
-    padding-left: 30px;
-    border-radius: 20px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05);
-    border-bottom-width: 5px;
-    border-bottom-style: solid;
-    border-bottom-color: var(--accent);
-    margin-top: 10px;
-    margin-bottom: 10px;
-    transition-property: all;
-    transition-duration: 0.3s;
-    transition-timing-function: ease-in-out;
-}
-    /* --- АНИМАЦИЯЛАР (Қатар санын көбейтеді) --- */
-@keyframes slideIn {
-    from { opacity: 0; transform: translateX(-20px); }
-    to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-/* --- МОБИЛЬДІ МӘЗІРДІ ТҮЗЕТУ --- */
-@media screen and (max-width: 768px) {
-    .nav-menu {
-        display: none; /* Әдепкіде жасыру */
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background-color: var(--header-bg);
-        z-index: 999;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .nav-menu.active {
-        display: flex; /* Батырманы басқанда шығады */
-        animation: fadeIn 0.5s ease;
-    }
-
-    .nav-item {
-        margin-top: 15px;
-        margin-bottom: 15px;
-        font-size: 1.5rem;
-    }
-}
-
-/* --- КОД РЕДАКТОРЫНЫҢ СТИЛЬДЕРІ --- */
-.editor-container {
-    display: flex;
-    flex-direction: row;
-    height: 500px;
-    background: #1e1e1e;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 2px solid #333;
-}
-
-.line-numbers {
-    width: 40px;
-    background: #252526;
-    color: #858585;
-    text-align: right;
-    padding-right: 10px;
-    padding-top: 10px;
-    font-family: 'Courier New', monospace;
-    user-select: none;
-}
 </style>
 <script>
 document.getElementById("sendBtn").addEventListener("click", function () {
@@ -914,56 +665,7 @@ document.getElementById("sendBtn").addEventListener("click", function () {
     document.getElementById("message").value = "";
 });
 
-const tasksData = {
-    python: [
-        { id: 1, title: "Айнымалылар", desc: "Екі санды қосу бағдарламасын жаз." },
-        { id: 2, title: "Input/Output", desc: "Пайдаланушы атын сұрап, сәлемдесу." },
-        { id: 3, title: "Деректер типтері", desc: "Бүтін санды бөлшек санға айналдыр." },
-        // Осылай 50-ге дейін жалғастыру...
-    ],
-    cpp: [
-        { id: 1, title: "Hello World", desc: "Экранға мәтін шығару." },
-        // Тағы 50 тапсырма...
-    ]
-};
-    // Тіркелу формасын тексеру (Validation)
-function validateLogin(event) {
-    // 405 қатесін болдырмау үшін алдын ала өңдеу
-    event.preventDefault();
-    
-    const email = document.getElementById('email-input').value;
-    const password = document.getElementById('pass-input').value;
-    
-    if (email.length < 5) {
-        alert("Электрондық поштаны дұрыс енгізіңіз");
-        return false;
-    }
-    
-    if (password.length < 6) {
-        alert("Құпия сөз кемінде 6 таңбадан тұруы керек");
-        return false;
-    }
-    
-    console.log("Жүйеге кіру орындалуда...");
-    window.location.href = "/dashboard";
-}
 
-// Python Кодты "Іске қосу" симуляциясы
-function runCode() {
-    const code = document.getElementById('code-input').value;
-    const terminal = document.getElementById('terminal-output');
-    
-    terminal.innerHTML = "> Код тексерілуде...<br>";
-    
-    setTimeout(() => {
-        if (code.includes("print('Salem')") || code.includes('print("Salem")')) {
-            terminal.innerHTML += "<span style='color: #4caf50;'>Salem</span><br>";
-            terminal.innerHTML += "<br>✅ Тапсырма сәтті орындалды! +10 XP";
-        } else {
-            terminal.innerHTML += "<span style='color: #f44336;'>Қате:</span> Экранға 'Salem' деп шығарыңыз.";
-        }
-    }, 1000);
-}
 </script>
 </body>
 </html>
