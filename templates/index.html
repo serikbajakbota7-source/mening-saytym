@@ -638,6 +638,103 @@ div.appendChild(t);
 #sendBtn:hover {
     background-color: #22c35e;
 }
+    /* --- АДАПТИВТІ СТИЛЬДЕР (Телефондар үшін) --- */
+
+@media (max-width: 768px) {
+    /* Header-ді ыңғайлы ету */
+    header {
+        padding: 10px 20px;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    nav a {
+        margin: 0 5px;
+        font-size: 12px;
+    }
+
+    /* Басты бет (Hero section) */
+    .home h1 {
+        font-size: 1.8rem;
+    }
+
+    .home p {
+        font-size: 0.9rem;
+        padding: 0 10px;
+    }
+
+    /* Секциялардың ішкі бос орындары */
+    section {
+        padding: 40px 5%;
+    }
+
+    /* Карточкаларды бір қатарға жинау */
+    .cards {
+        grid-template-columns: 1fr; /* Телефонда карточкалар бірінің астына бірі тұрады */
+    }
+
+    /* Робот ассистентті кішірейту */
+    .robot-fixed {
+        width: 80px;
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .speech-bubble {
+        bottom: 100px;
+        right: 20px;
+        font-size: 13px;
+        width: 180px;
+    }
+
+    /* Футерді реттеу */
+    .social-buttons {
+        flex-direction: column; /* Әлеуметтік желілер тігінен тұрады */
+        align-items: center;
+    }
+
+    .social-buttons li a {
+        width: 200px;
+    }
+
+    /* Тапсырмалар торын реттеу (Task Grid) */
+    .task-grid {
+        grid-template-columns: repeat(5, 1fr); /* 10-ның орнына 5 баған */
+    }
+
+    /* Пікір қалдыру блогын экранға сыйғызу */
+    .feedback-card {
+        padding: 20px;
+        width: 95%;
+    }
+
+    /* Музыка батырмасын реттеу */
+    #musicControl {
+        left: 50%;
+        top: auto;
+        bottom: 20px;
+        transform: translateX(-50%);
+        width: 80%;
+    }
+}
+
+/* Өте кішкентай экрандар үшін (iPhone SE т.б) */
+@media (max-width: 400px) {
+    .task-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    header h2 {
+        font-size: 1.2rem;
+    }
+}
 </style>
 <script>
 document.getElementById("sendBtn").addEventListener("click", function () {
